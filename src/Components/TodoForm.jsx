@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TodoForm() {
   const [inputValue, setInputValue] = useState("");
@@ -13,6 +13,10 @@ export default function TodoForm() {
     setTodos([...todos, { id: nanoid(), name: inputValue }]);
     setInputValue("");
   }
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <section className="grid gap-4 p-5">
