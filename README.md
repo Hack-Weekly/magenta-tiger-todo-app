@@ -1,1 +1,1 @@
-# magenta-tiger-todo-app
+# Magenta Tiger Todo App
