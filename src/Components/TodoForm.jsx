@@ -1,22 +1,18 @@
-import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
+import { updateTasks } from '../firebase/firestore';
 
-export default function TodoForm() {
-  const [inputValue, setInputValue] = useState("");
-  const [todos, setTodos] = useState([
-    { id: nanoid(), name: "Buy coffee" },
-    { id: nanoid(), name: "Water plants" },
-  ]);
+export default function TodoForm({ userUID, getTasksFromFirebase }) {
+  const [inputValue, setInputValue] = useState('');
 
-  function addTodo(event) {
+  const addTodo = async (event) => {
     event.preventDefault();
-    setTodos([...todos, { id: nanoid(), name: inputValue }]);
-    setInputValue("");
-  }
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    if (inputValue.length > 0) {
+      await updateTasks(userUID, nanoid(), inputValue, Date.now());
+      getTasksFromFirebase(userUID);
+      setInputValue('');
+    }
+  };
 
   return (
     <section className="grid gap-4 p-5">
@@ -40,16 +36,6 @@ export default function TodoForm() {
           Add
         </button>
       </form>
-
-      <ul className="list-disc">
-        {todos.map((todo) => {
-          return (
-            <li className="list-inside" key={todo.id}>
-              {todo.name}
-            </li>
-          );
-        })}
-      </ul>
     </section>
   );
 }
