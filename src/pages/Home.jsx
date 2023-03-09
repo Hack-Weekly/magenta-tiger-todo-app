@@ -24,14 +24,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    let authToken = sessionStorage.getItem('Auth Token');
-
-    if (authToken) {
-      navigate('/');
-    }
-  }, []);
-
-  useEffect(() => {
     if (!user) {
       navigate('/login');
     }

@@ -51,9 +51,6 @@ export const signInWithGoogle = async () => {
         authProvider: 'google',
         email: user.email,
       });
-      if (res) {
-        sessionStorage.setItem('Auth Token', await res.user.getIdToken());
-      }
     }
   } catch (err) {
     throw err;
@@ -63,9 +60,6 @@ export const signInWithGoogle = async () => {
 export const logInWithEmailAndPassword = async (email, password) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
-    if (res) {
-      sessionStorage.setItem('Auth Token', await res.user.getIdToken());
-    }
   } catch (err) {
     throw err;
   }
@@ -81,9 +75,6 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: 'local',
       email,
     });
-    if (res) {
-      sessionStorage.setItem('Auth Token', await res.user.getIdToken());
-    }
   } catch (err) {
     throw err;
   }
@@ -100,5 +91,4 @@ export const sendPasswordReset = async (email) => {
 
 export const logout = () => {
   signOut(auth);
-  sessionStorage.clear();
 };
