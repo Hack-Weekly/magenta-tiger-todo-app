@@ -19,9 +19,24 @@ import {
   signOut,
 } from 'firebase/auth';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 export const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
+
+export function getErrorMessage(error) {
+  switch (error.code) {
+    case 'auth/user-not-found':
+      return 'Invalid email or password';
+    case 'auth/wrong-password':
+      return 'Invalid email or password';
+    case 'auth/too-many-requests':
+      return 'Too many unsuccessful login attempts. Please try again later.';
+    default:
+      return 'An error occurred. Please try again.';
+  }
+}
 
 export const signInWithGoogle = async () => {
   try {
@@ -36,19 +51,23 @@ export const signInWithGoogle = async () => {
         authProvider: 'google',
         email: user.email,
       });
-      sessionStorage.setItem('Auth Token', await res.user.getIdToken());
+      if (res) {
+        sessionStorage.setItem('Auth Token', await res.user.getIdToken());
+      }
     }
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
 
 export const logInWithEmailAndPassword = async (email, password) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
-    sessionStorage.setItem('Auth Token', await res.user.getIdToken());
+    if (res) {
+      sessionStorage.setItem('Auth Token', await res.user.getIdToken());
+    }
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
@@ -62,21 +81,24 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: 'local',
       email,
     });
-    sessionStorage.setItem('Auth Token', await res.user.getIdToken());
+    if (res) {
+      sessionStorage.setItem('Auth Token', await res.user.getIdToken());
+    }
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
 export const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    alert('Password reset link sent!');
   } catch (err) {
-    console.error(err);
+    console.log(err);
+    throw err;
   }
 };
 
 export const logout = () => {
   signOut(auth);
+  sessionStorage.clear();
 };

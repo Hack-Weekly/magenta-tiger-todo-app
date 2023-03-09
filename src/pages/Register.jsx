@@ -5,6 +5,9 @@ import {
   signInWithGoogle,
 } from '../firebase/auth';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/auth';
 
@@ -24,48 +27,47 @@ const Register = () => {
     password: '',
   });
 
-  const [nameError, setNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [validationError, setValidationError] = useState('');
 
-  const handleFormChange = (e) => {
+  const handleFormChange = async (e) => {
     const { name, value } = e.target;
     setRegisterForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate the name, email & password before register
-
     if (!validateName(registerForm.name)) {
-      setNameError('Name should be at least 1 character long.');
+      setValidationError('Please enter a valid name.');
       return;
     } else {
-      setNameError('');
+      setValidationError('');
     }
-
     if (!validateEmail(registerForm.email)) {
-      setEmailError('Please enter a valid email address.');
+      setValidationError('Please enter a valid email address.');
       return;
     } else {
-      setEmailError('');
+      setValidationError('');
     }
-
     if (!validatePassword(registerForm.password)) {
-      setPasswordError(
+      setValidationError(
         'Please enter a password that is at least 8 characters long.'
       );
       return;
     } else {
-      setPasswordError('');
+      setValidationError('');
     }
 
-    registerWithEmailAndPassword(
-      registerForm.name,
-      registerForm.email,
-      registerForm.password
-    );
+    try {
+      await registerWithEmailAndPassword(
+        registerForm.name,
+        registerForm.email,
+        registerForm.password
+      );
+    } catch (err) {
+      toast.error(getErrorMessage(err));
+    }
   };
 
   const validateName = (name) => {
@@ -84,54 +86,72 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-slate-50 max-w-sm mx-auto my-2 flex-col justify-center align-middle">
-      <h2>Register account</h2>
-      <form className="flex-col">
-        <input
-          name="name"
-          value={registerForm.name}
-          type="text"
-          title="name"
-          placeholder="name"
-          className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
-          onChange={handleFormChange}
-        />
-        <input
-          name="email"
-          value={registerForm.email}
-          type="email"
-          title="email"
-          placeholder="email"
-          className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
-          onChange={handleFormChange}
-        />
-        <input
-          name="password"
-          value={registerForm.password}
-          type="password"
-          title="username"
-          placeholder="password"
-          className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
-          onChange={handleFormChange}
-        />
+    <>
+      <ToastContainer />
+      <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg max-w-sm m-auto mt-4 ">
+        <h3 className="text-2xl font-bold text-center">Register</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="mt-3">
+            <div>
+              <label className="block" htmlFor="name">
+                Name
+              </label>
+              <input
+                title="Enter email"
+                value={registerForm.name}
+                name="name"
+                type="text"
+                placeholder="Name"
+                onChange={handleFormChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+              />
+            </div>
+            <div>
+              <label className="block" htmlFor="email">
+                Email
+              </label>
+              <input
+                title="Enter password"
+                value={registerForm.email}
+                name="email"
+                type="email"
+                placeholder="Email"
+                onChange={handleFormChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block" htmlFor="password">
+                Password
+              </label>
+              <input
+                value={registerForm.password}
+                name="password"
+                type="password"
+                placeholder="Password"
+                onChange={handleFormChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+              />
+            </div>
+            <p className="text-red-500">{validationError}</p>
+            <div className="flex items-baseline justify-between">
+              <button className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+                Create
+              </button>
+              <Link to="/login" className="text-sm hover:underline">
+                Already a member? Log in
+              </Link>
+            </div>
+          </div>
+        </form>
         <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded"
-          onClick={handleSubmit}
+          className="bg-green-500 hover:bg-green-700 text-white font-normal py-1 px-4 rounded mt-2"
+          onClick={signInWithGoogle}
         >
-          Register
+          Sign Up with Google
         </button>
-      </form>
-      <Link to="/login" className="underline">
-        Already have an account?
-      </Link>
-      <button
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
-        onClick={signInWithGoogle}
-      >
-        Sign Up with Google
-      </button>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import TodoForm from '../Components/TodoForm';
+import TodoList from '../Components/TodoList';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -7,11 +8,20 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { getTasks } from '../firebase/firestore';
 
 const Home = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   const [userID, setUserID] = useState(null);
   const [tasks, setTasks] = useState(null);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const getTasksFromFirebase = async (id) => {
+    const tasks = await getTasks(id);
+    if (tasks) {
+      setTasks(tasks);
+    } else if (!tasks) {
+      return null;
+    }
+  };
 
   useEffect(() => {
     let authToken = sessionStorage.getItem('Auth Token');
@@ -19,24 +29,13 @@ const Home = () => {
     if (authToken) {
       navigate('/');
     }
-
-    if (!authToken) {
-      navigate('/login');
-    }
   }, []);
-
-  const getTasksFromFirebase = async (id) => {
-    const tasks = await getTasks(id);
-    if (tasks) {
-      setTasks(tasks);
-    } else if (!tasks) {
-    }
-  };
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
-    } else if (user) {
+    }
+    if (user) {
       setUserID(user.uid);
       getTasksFromFirebase(user.uid);
     }
@@ -44,12 +43,14 @@ const Home = () => {
 
   return (
     <>
-      <TodoForm
-        userUID={userID}
-        tasks={tasks}
-        getTasksFromFirebase={getTasksFromFirebase}
-      />
-      <button onClick={logout}>Log Out</button>
+      <TodoForm userUID={userID} getTasksFromFirebase={getTasksFromFirebase} />
+      <TodoList tasks={tasks} />
+      <button
+        onClick={logout}
+        className="rounded-md bg-red-500 text-white px-4"
+      >
+        Log Out
+      </button>
     </>
   );
 };

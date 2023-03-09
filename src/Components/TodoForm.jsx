@@ -1,20 +1,15 @@
 import { nanoid } from 'nanoid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { updateTasks } from '../firebase/firestore';
 
-export default function TodoForm({ tasks, userUID, getTasksFromFirebase }) {
+export default function TodoForm({ userUID, getTasksFromFirebase }) {
   const [inputValue, setInputValue] = useState('');
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    setTodos(tasks);
-  }, [tasks]);
 
   const addTodo = async (event) => {
     event.preventDefault();
     if (inputValue.length > 0) {
       await updateTasks(userUID, nanoid(), inputValue, Date.now());
-      await getTasksFromFirebase(userUID);
+      getTasksFromFirebase(userUID);
       setInputValue('');
     }
   };
@@ -41,22 +36,6 @@ export default function TodoForm({ tasks, userUID, getTasksFromFirebase }) {
           Add
         </button>
       </form>
-
-      <ul className="list-disc">
-        {todos
-          ? todos
-              .sort((a, b) => b.date - a.date)
-              .map((todo) => {
-                return (
-                  <li className="list-inside" key={todo.id}>
-                    <p>name - {todo.name}</p>
-                    <p>date - {todo.date}</p>
-                    <p>id - {todo.id}</p>
-                  </li>
-                );
-              })
-          : null}
-      </ul>
     </section>
   );
 }
