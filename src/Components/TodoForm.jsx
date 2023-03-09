@@ -1,22 +1,23 @@
-import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { nanoid } from 'nanoid';
+import { useEffect, useState } from 'react';
+import { updateTasks } from '../firebase/firestore';
 
-export default function TodoForm() {
-  const [inputValue, setInputValue] = useState("");
-  const [todos, setTodos] = useState([
-    { id: nanoid(), name: "Buy coffee" },
-    { id: nanoid(), name: "Water plants" },
-  ]);
-
-  function addTodo(event) {
-    event.preventDefault();
-    setTodos([...todos, { id: nanoid(), name: inputValue }]);
-    setInputValue("");
-  }
+export default function TodoForm({ tasks, userUID, getTasksFromFirebase }) {
+  const [inputValue, setInputValue] = useState('');
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    setTodos(tasks);
+  }, [tasks]);
+
+  const addTodo = async (event) => {
+    event.preventDefault();
+    if (inputValue.length > 0) {
+      await updateTasks(userUID, nanoid(), inputValue, Date.now());
+      await getTasksFromFirebase(userUID);
+      setInputValue('');
+    }
+  };
 
   return (
     <section className="grid gap-4 p-5">
@@ -42,13 +43,19 @@ export default function TodoForm() {
       </form>
 
       <ul className="list-disc">
-        {todos.map((todo) => {
-          return (
-            <li className="list-inside" key={todo.id}>
-              {todo.name}
-            </li>
-          );
-        })}
+        {todos
+          ? todos
+              .sort((a, b) => b.date - a.date)
+              .map((todo) => {
+                return (
+                  <li className="list-inside" key={todo.id}>
+                    <p>name - {todo.name}</p>
+                    <p>date - {todo.date}</p>
+                    <p>id - {todo.id}</p>
+                  </li>
+                );
+              })
+          : null}
       </ul>
     </section>
   );
