@@ -97,7 +97,7 @@ const Register = () => {
                 Name
               </label>
               <input
-                title="Enter email"
+                title="Enter name"
                 value={registerForm.name}
                 name="name"
                 type="text"
@@ -111,7 +111,7 @@ const Register = () => {
                 Email
               </label>
               <input
-                title="Enter password"
+                title="Enter email"
                 value={registerForm.email}
                 name="email"
                 type="email"
@@ -125,6 +125,7 @@ const Register = () => {
                 Password
               </label>
               <input
+                title="Enter password"
                 value={registerForm.password}
                 name="password"
                 type="password"
