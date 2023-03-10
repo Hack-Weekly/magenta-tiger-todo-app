@@ -1,16 +1,16 @@
-import { nanoid } from 'nanoid';
-import { useState } from 'react';
-import { updateTasks } from '../firebase/firestore';
+import { nanoid } from "nanoid";
+import { useState } from "react";
+import { updateTasks } from "../firebase/firestore";
 
 export default function TodoForm({ userUID, getTasksFromFirebase }) {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const addTodo = async (event) => {
     event.preventDefault();
     if (inputValue.length > 0) {
       await updateTasks(userUID, nanoid(), inputValue, Date.now());
       await getTasksFromFirebase();
-      setInputValue('');
+      setInputValue("");
     }
   };
 
