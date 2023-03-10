@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import { editTask } from '../firebase/firestore';
+import { useState } from 'react'
+import { editTask } from '../firebase/firestore'
 
 const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [taskName, setTaskName] = useState(name);
+  const [isEditing, setIsEditing] = useState(false)
+  const [taskName, setTaskName] = useState(name)
 
   const handleEdit = () => {
-    setIsEditing((prevState) => !prevState);
-    setTaskName(name);
-  };
+    setIsEditing((prevState) => !prevState)
+    setTaskName(name)
+  }
 
   const handleTaskChange = (event) => {
-    setTaskName(event.target.value);
-  };
+    setTaskName(event.target.value)
+  }
 
   const handleSave = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    await editTask(docID, taskName);
-    await getTasksFromFirebase();
-    setIsEditing(false);
-  };
+    await editTask(docID, taskName)
+    await getTasksFromFirebase()
+    setIsEditing(false)
+  }
 
   return (
     <div>
@@ -51,7 +51,7 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
         </form>
       ) : null}
     </div>
-  );
-};
+  )
+}
 
-export default TodoEdit;
+export default TodoEdit
