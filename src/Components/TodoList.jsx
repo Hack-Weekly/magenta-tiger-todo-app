@@ -3,7 +3,6 @@ import dateConvert from "./utilFunctions/dateConvert"
 
 const TodoList = ({ tasks }) => {
     const [todos, setTodos] = useState([])
-    console.log(todos)
 
     useEffect(() => {
         setTodos(tasks)
