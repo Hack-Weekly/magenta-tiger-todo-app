@@ -13,11 +13,11 @@ export const updateTasks = async (userUID, id, name, date) => {
   try {
     const docRef = await addDoc(collection(db, "tasks"), {
       uid: userUID,
-      name: name,
-      date: date,
+      name,
+      date,
       isCompleted: false,
     });
-    await updateDoc(docRef, { docID: docRef.id, id: id });
+    await updateDoc(docRef, { docID: docRef.id, id });
   } catch (err) {
     console.log(err);
   }
@@ -26,7 +26,7 @@ export const updateTasks = async (userUID, id, name, date) => {
 export const editTask = async (docID, name) => {
   try {
     const taskRef = doc(db, "tasks", docID);
-    await updateDoc(taskRef, { name: name });
+    await updateDoc(taskRef, { name });
   } catch (err) {
     console.error(err);
   }
