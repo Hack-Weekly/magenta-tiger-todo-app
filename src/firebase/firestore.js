@@ -48,3 +48,12 @@ export const getTasks = async (userUID) => {
     console.log(err);
   }
 };
+
+export const toggleComplete = async (todo) => {
+  try {
+    const taskRef = doc(db, "tasks", todo.docID);
+    await updateDoc(taskRef, { isCompleted: !todo.isCompleted });
+  } catch (err) {
+    console.error(err);
+  }
+};
