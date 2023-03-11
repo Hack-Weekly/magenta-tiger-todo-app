@@ -1,14 +1,15 @@
+
 import { useEffect, useState } from 'react';
 import { toggleComplete } from '../firebase/firestore';
 import TodoEdit from './TodoEdit';
 import dateConvert from './utilFunctions/dateConvert';
 
 const TodoList = ({ tasks, getTasksFromFirebase }) => {
-  const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState([])
 
-  useEffect(() => {
-    setTodos(tasks);
-  }, [tasks]);
+    useEffect(() => {
+        setTodos(tasks)
+    }, [tasks])
 
   const markAsCompleted = async (todo) => {
     await toggleComplete(todo);
@@ -96,4 +97,69 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
   );
 };
 
-export default TodoList;
+
+                <h2 className="text-xl font-bold text-slate-400">Done</h2>
+                <ul className="list-disc">
+                    {todos
+                        ? todos
+                              .filter(todo => todo.isCompleted)
+                              .sort((a, b) => b.date - a.date)
+                              .map(todo => {
+                                  return (
+                                      <li
+                                          className="list-inside flex gap-2 mb-5"
+                                          key={todo.id}
+                                      >
+                                          <input
+                                              type="checkbox"
+                                              onChange={() => {
+                                                  markAsCompleted(todo)
+                                              }}
+                                          />
+                                          <div>
+                                              <label
+                                                  style={{
+                                                      textDecoration:
+                                                          todo.isCompleted &&
+                                                          "line-through",
+                                                  }}
+                                              >
+                                                  {todo.name}
+                                              </label>
+                                              <p
+                                                  style={{
+                                                      textDecoration:
+                                                          todo.isCompleted &&
+                                                          "line-through",
+                                                  }}
+                                                  className="text-xs"
+                                              >
+                                                  {dateConvert(todo.date)}
+                                              </p>
+                                          </div>
+                                          <TodoEdit
+                                              docID={todo.docID}
+                                              name={todo.name}
+                                              getTasksFromFirebase={
+                                                  getTasksFromFirebase
+                                              }
+                                          />
+                                          <button
+                                              className="danger-button button-base"
+                                              onClick={() => {
+                                                  handleDelete(todo.docID)
+                                              }}
+                                          >
+                                              Delete
+                                          </button>
+                                      </li>
+                                  )
+                              })
+                        : null}
+                </ul>
+            </div>
+        </section>
+    )
+}
+
+export default TodoList
