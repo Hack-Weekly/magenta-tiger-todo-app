@@ -1,6 +1,8 @@
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { updateTasks } from "../firebase/firestore";
+import { Button } from "./Button";
+
 
 export default function TodoForm({ userUID, getTasksFromFirebase }) {
   const [inputValue, setInputValue] = useState("");
@@ -29,12 +31,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
             type="text"
           />
         </label>
-        <button
-          className="rounded-md bg-slate-800 text-white px-4"
-          type="submit"
-        >
-          Add
-        </button>
+        <Button btnText="Add" htmlType="submit" />
       </form>
     </section>
   );
