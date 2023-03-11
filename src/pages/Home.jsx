@@ -1,12 +1,12 @@
-import { Button } from "../Components/Button";
-import TodoForm from "../Components/TodoForm";
-import TodoList from "../Components/TodoList";
+import { Button } from '../Components/Button';
+import TodoForm from '../Components/TodoForm';
+import TodoList from '../Components/TodoList';
 
-import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { auth, logout } from "../firebase/auth";
-import { getTasks } from "../firebase/firestore";
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth, logout } from '../firebase/auth';
+import { getTasks } from '../firebase/firestore';
 
 const Home = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -28,7 +28,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
     if (user) {
       setUserID(user.uid);

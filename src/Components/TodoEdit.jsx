@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { editTask } from "../firebase/firestore";
-import { Button } from "./Button";
+import { useState } from 'react';
+import { editTask } from '../firebase/firestore';
+import { Button } from './Button';
 
 const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -28,7 +28,7 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
       <Button
         title="Edit task"
         onClick={handleEdit}
-        btnText={!isEditing ? "Edit" : "Close"}
+        btnText={!isEditing ? 'Edit' : 'Close'}
         type="outlined"
       />
 
