@@ -118,6 +118,14 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                                                   getTasksFromFirebase
                                               }
                                           />
+                                          <button
+                                              className="danger-button button-base"
+                                              onClick={() => {
+                                                  handleDelete(todo.docID)
+                                              }}
+                                          >
+                                              Delete
+                                          </button>
                                       </li>
                                   )
                               })
