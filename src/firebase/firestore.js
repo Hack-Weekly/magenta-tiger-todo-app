@@ -25,10 +25,10 @@ export const updateTasks = async (userUID, id, name, date, dueDate) => {
   }
 };
 
-export const editTask = async (docID, name) => {
+export const editTask = async (docID, name, dueDate) => {
   try {
     const taskRef = doc(db, 'tasks', docID);
-    await updateDoc(taskRef, { name });
+    await updateDoc(taskRef, { name, dueDate });
   } catch (err) {
     console.error(err);
   }
