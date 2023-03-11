@@ -42,7 +42,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                       <div>
                         <label>{todo.name}</label>
                         <p className="text-xs">{dateConvert(todo.date)}</p>
-                        {todo.dueDate.length == 0 ? null : (
+                        {todo.dueDate.length !== 0 && (
                           <p>{formatDueDate(todo.dueDate)}</p>
                         )}
                       </div>
@@ -97,7 +97,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         >
                           {dateConvert(todo.date)}
                         </p>
-                        {todo.dueDate.length == 0 ? null : (
+                        {todo.dueDate.length !== 0 && (
                           <p
                             style={{
                               textDecoration:

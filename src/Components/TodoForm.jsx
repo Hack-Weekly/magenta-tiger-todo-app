@@ -58,7 +58,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
           name="datePicker"
           customInput={<ReactDatePickerInput />}
         />
-        {dueDate.length === 0 ? null : (
+        {dueDate.length !== 0 && (
           <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
         )}
       </div>

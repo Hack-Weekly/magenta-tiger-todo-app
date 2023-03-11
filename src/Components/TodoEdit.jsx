@@ -1,4 +1,4 @@
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import { editTask } from '../firebase/firestore';
 import { Button } from './Button';
 
@@ -13,10 +13,14 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate }) => {
   const [taskDueDate, setTaskDueDate] = useState('');
 
   const handleEdit = () => {
-    if (dueDate.length > 0) {
+    setIsEditing((prevState) => !prevState);
+
+    if (dueDate.length === 0) {
+      setTaskDueDate('');
+    } else {
       setTaskDueDate(dueDate.toDate());
     }
-    setIsEditing((prevState) => !prevState);
+
     setTaskName(name);
   };
 
@@ -76,7 +80,7 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate }) => {
               name="datePicker"
               customInput={<ReactDatePickerInput />}
             />
-            {taskDueDate.length === 0 ? null : (
+            {taskDueDate.length > 0 && (
               <Button
                 btnText="X"
                 type="danger"
