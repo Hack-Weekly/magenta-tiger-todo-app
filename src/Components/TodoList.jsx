@@ -1,11 +1,32 @@
 import { useEffect, useState } from 'react';
-import { toggleComplete, deleteTask } from '../firebase/firestore';
+import {
+  toggleComplete,
+  deleteTask,
+  toggleFavourite,
+} from '../firebase/firestore';
 import { Button } from './Button';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as regFaStar } from '@fortawesome/free-regular-svg-icons';
+
 import TodoEdit from './TodoEdit';
 import dateConvert from './utilFunctions/dateConvert';
 
 const TodoList = ({ tasks, getTasksFromFirebase }) => {
   const [todos, setTodos] = useState([]);
+  const fullStar = (
+    <FontAwesomeIcon icon={faStar} style={{ color: '#017bfe' }} size="lg" />
+  );
+  const hollowStar = (
+    <FontAwesomeIcon
+      icon={regFaStar}
+      style={{
+        color: '#017bfe',
+      }}
+      size="lg"
+    />
+  );
 
   useEffect(() => {
     setTodos(tasks);
@@ -18,6 +39,12 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
 
   const handleDelete = async (id) => {
     await deleteTask(id);
+    await getTasksFromFirebase();
+  };
+
+  const markAsFavourited = async (todo) => {
+    console.log('called');
+    await toggleFavourite(todo);
     await getTasksFromFirebase();
   };
 
@@ -55,6 +82,23 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         btnText="Delete"
                         onClick={() => handleDelete(todo.docID)}
                       />
+                      {todo.isFavourited ? (
+                        <button
+                          onClick={() => {
+                            markAsFavourited(todo);
+                          }}
+                        >
+                          {fullStar}
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            markAsFavourited(todo);
+                          }}
+                        >
+                          {hollowStar}
+                        </button>
+                      )}
                     </li>
                   );
                 })
@@ -103,6 +147,23 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         btnText="Delete"
                         onClick={() => handleDelete(todo.docID)}
                       />
+                      {todo.isFavourited ? (
+                        <button
+                          onClick={() => {
+                            markAsFavourited(todo);
+                          }}
+                        >
+                          {fullStar}
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            markAsFavourited(todo);
+                          }}
+                        >
+                          {hollowStar}
+                        </button>
+                      )}
                     </li>
                   );
                 })
