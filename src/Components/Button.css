@@ -1,0 +1,75 @@
+.button-base.button-base {
+  display: inline;
+  min-width: min-content;
+  padding-block: 4px;
+  padding-inline: 24px;
+  background-color: var(--colors-blue);
+  color: var(--colors-white);
+  border-radius: 8px;
+  outline: none;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+
+.button-base:hover {
+  color: var(--colors-white);
+  background-color: var(--colors-light-blue);
+}
+
+.button-base:active,
+.button-base:focus-visible {
+  background-color: var(--colors-dark-blue);
+}
+
+.button-base:disabled {
+  pointer-events: none;
+  color: var(--colors-white);
+  background-color: var(--colors-light-grey);
+}
+
+/* Outlined Button */
+
+.outlined-button.outlined-button {
+  color: var(--colors-blue);
+  background-color: var(--colors-ice-blue);
+}
+
+.outlined-button:hover {
+  color: var(--colors-white);
+  background-color: var(--colors-light-blue);
+}
+
+.outlined-button:active,
+.outlined-button:focus-visible {
+  color: var(--colors-white);
+  background-color: var(--colors-blue);
+}
+
+/* Success Button */
+
+.success-button.success-button {
+  background-color: var(--colors-success);
+}
+
+.success-button:hover {
+  background-color: var(--colors-light-success);
+}
+
+.success-button:active,
+.success-button:focus-visible {
+  background-color: var(--colors-dark-success);
+}
+
+/* Danger Button */
+
+.danger-button.danger-button {
+  background-color: var(--colors-danger);
+}
+
+.danger-button:hover {
+  background-color: var(--colors-light-danger);
+}
+
+.danger-button:active,
+.danger-button:focus-visible {
+  background-color: var(--colors-dark-danger);
+}
