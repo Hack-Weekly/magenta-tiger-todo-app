@@ -1,8 +1,10 @@
 import "./Button.css";
 
-export const Button = ({ type, btnText, disabled }) => {
+export const Button = ({ type, btnText, disabled, title, htmlType }) => {
   return (
     <button
+      type={htmlType}
+      title={title}
       disabled={disabled}
       className={
         type === "outlined"

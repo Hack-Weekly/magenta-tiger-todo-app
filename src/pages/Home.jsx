@@ -1,3 +1,4 @@
+import { Button } from "../Components/Button";
 import TodoForm from "../Components/TodoForm";
 import TodoList from "../Components/TodoList";
 
@@ -39,12 +40,7 @@ const Home = () => {
     <>
       <TodoForm userUID={userID} getTasksFromFirebase={getTasksFromFirebase} />
       <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
-      <button
-        onClick={logout}
-        className="rounded-md bg-red-500 text-white px-4"
-      >
-        Log Out
-      </button>
+      <Button onClick={logout} type="danger" btnText="Log out" />
     </>
   );
 };
