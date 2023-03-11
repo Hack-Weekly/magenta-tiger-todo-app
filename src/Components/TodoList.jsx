@@ -43,7 +43,6 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
   };
 
   const markAsFavourited = async (todo) => {
-    console.log('called');
     await toggleFavourite(todo);
     await getTasksFromFirebase();
   };
