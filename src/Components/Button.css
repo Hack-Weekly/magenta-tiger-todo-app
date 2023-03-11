@@ -1,8 +1,69 @@
-.button {
+.button-base {
   display: inline;
   min-width: min-content;
   padding-block: 4px;
-  padding-inline: 20px;
+  padding-inline: 24px;
   background-color: var(--colors-blue);
-  border-radius: 4px;
+  color: var(--colors-white);
+  border-radius: 8px;
+  outline: none;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+
+.button-base:hover {
+  color: var(--colors-white);
+  background-color: var(--colors-light-blue);
+}
+
+.button-base:active,
+.button-base:focus-visible {
+  background-color: var(--colors-dark-blue);
+}
+
+.button-base:disabled {
+  pointer-events: none;
+  color: var(--colors-white);
+  background-color: var(--colors-light-grey);
+}
+
+/* Outlined Button */
+
+.outlined-button {
+  color: var(--colors-blue);
+  background-color: var(--colors-ice-blue);
+}
+
+.outlined-button:hover {
+  background-color: var(--colors-light-blue);
+}
+
+.outlined-button:active,
+.outlined-button:focus-visible {
+  background-color: var(--colors-blue);
+}
+
+.success-button {
+  background-color: var(--colors-light-success);
+}
+
+.success-button:hover {
+  background-color: var(--colors-success);
+}
+
+.success-button:active,
+.success-button:focus-visible {
+  background-color: var(--colors-dark-success);
+}
+
+.success-button {
+  background-color: var(--colors-light-danger);
+}
+
+.success-button:hover {
+  background-color: var(--colors-danger);
+}
+
+.success-button:active,
+.success-button:focus-visible {
+  background-color: var(--colors-dark-danger);
 }

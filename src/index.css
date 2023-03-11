@@ -3,9 +3,18 @@
 @tailwind utilities;
 
 body {
-  --colors-light-blue: #e3f1ff;
+  --colors-ice-blue: #e9f4ff;
+  --colors-light-blue: #3d9afe;
   --colors-blue: #007bff;
+  --colors-dark-blue: #0067d5;
   --colors-black: black;
   --colors-white: white;
+  --colors-light-grey: #8c8c8c;
   --colors-dark-grey: #4b4b4b;
+  --colors-light-success: #6affbc;
+  --colors-success: #0cfb90;
+  --colors-dark-success: #00e07b;
+  --colors-light-danger: #ff9191;
+  --colors-danger: #ff6868;
+  --colors-dark-danger: #f44040;
 }
