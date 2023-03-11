@@ -17,6 +17,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
       await updateTasks(userUID, nanoid(), inputValue, Date.now(), dueDate);
       await getTasksFromFirebase();
       setInputValue('');
+      setDueDate('');
     }
   };
 
@@ -24,14 +25,13 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
     <Button
       btnText={dueDate.length === 0 ? 'No due date' : dateConvert(dueDate)}
       type="outlined"
-      ref={ref}
       {...props}
     />
   ));
 
   return (
     <section className="grid gap-4 p-5">
-      <form className="flex gap-2 " onSubmit={addTodo}>
+      <form className="flex gap-2" onSubmit={addTodo}>
         <label>
           Your todo:
           <input
@@ -44,24 +44,24 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
             type="text"
           />
         </label>
-        <div className="flex gap-1">
-          <ReactDatePicker
-            wrapperClassName="selector-date-wrapper"
-            shouldCloseOnSelect
-            timeCaption="time"
-            dateFormat="MMM d, yyyy"
-            selected={dueDate}
-            onChange={(date) => setDueDate(date)}
-            name="datePicker"
-            customInput={<ReactDatePickerInput />}
-          />
-          {dueDate.length === 0 ? null : (
-            <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
-          )}
-        </div>
 
         <Button btnText="Add" htmlType="submit" />
       </form>
+      <div className="flex gap-1">
+        <ReactDatePicker
+          wrapperClassName="selector-date-wrapper"
+          shouldCloseOnSelect
+          timeCaption="time"
+          dateFormat="MMM d, yyyy"
+          selected={dueDate}
+          onChange={(date) => setDueDate(date)}
+          name="datePicker"
+          customInput={<ReactDatePickerInput />}
+        />
+        {dueDate.length === 0 ? null : (
+          <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
+        )}
+      </div>
     </section>
   );
 }
