@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { auth, getErrorMessage, signInWithGoogle } from '../firebase/auth';
+import { auth, getErrorMessage, signInWithGoogle } from "../firebase/auth";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { logInWithEmailAndPassword } from '../firebase/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Button } from "../Components/Button";
+import { logInWithEmailAndPassword } from "../firebase/auth";
 
 const Login = () => {
   const [user] = useAuthState(auth);
@@ -15,16 +16,16 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate("/");
     }
   }, [user]);
 
   const [loginForm, setLoginForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
-  const [validationError, setValidationError] = useState('');
+  const [validationError, setValidationError] = useState("");
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -36,19 +37,19 @@ const Login = () => {
 
     // Validate the email and password before logging in
     if (!validateEmail(loginForm.email)) {
-      setValidationError('Please enter a valid email address.');
+      setValidationError("Please enter a valid email address.");
       return;
     } else {
-      setValidationError('');
+      setValidationError("");
     }
 
     if (!validatePassword(loginForm.password)) {
       setValidationError(
-        'Please enter a password that is at least 8 characters long.'
+        "Please enter a password that is at least 8 characters long."
       );
       return;
     } else {
-      setValidationError('');
+      setValidationError("");
     }
     try {
       await logInWithEmailAndPassword(loginForm.email, loginForm.password);
@@ -107,9 +108,7 @@ const Login = () => {
             </div>
             <p className="text-red-500">{validationError}</p>
             <div className="flex items-baseline justify-between">
-              <button className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
-                Login
-              </button>
+              <Button btnText="Login" title="Login" />
               <Link to="/register" className="text-sm hover:underline">
                 Don`t have an account? Create new
               </Link>
