@@ -8,7 +8,7 @@ import { Button } from './Button';
 import { hollowStar } from './icons/icon';
 import { fullStar } from './icons/icon';
 import TodoEdit from './TodoEdit';
-import dateConvert from './utilFunctions/dateConvert';
+import dateConvert, { formatDueDate } from './utilFunctions/dateConvert';
 
 const TodoList = ({ tasks, getTasksFromFirebase }) => {
   const [todos, setTodos] = useState([]);
@@ -53,9 +53,14 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                       <div>
                         <label>{todo.name}</label>
                         <p className="text-xs">{dateConvert(todo.date)}</p>
+                        {todo.dueDate.length !== 0 && (
+                          <p>{formatDueDate(todo.dueDate)}</p>
+                        )}
                       </div>
+
                       <div>
                         <TodoEdit
+                          dueDate={todo.dueDate}
                           docID={todo.docID}
                           name={todo.name}
                           getTasksFromFirebase={getTasksFromFirebase}
@@ -110,11 +115,22 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         >
                           {dateConvert(todo.date)}
                         </p>
+                        {todo.dueDate.length !== 0 && (
+                          <p
+                            style={{
+                              textDecoration:
+                                todo.isCompleted && 'line-through',
+                            }}
+                          >
+                            {formatDueDate(todo.dueDate)}
+                          </p>
+                        )}
                       </div>
                       <TodoEdit
                         docID={todo.docID}
                         name={todo.name}
                         getTasksFromFirebase={getTasksFromFirebase}
+                        dueDate={todo.dueDate}
                       />
                       <Button
                         type="danger"

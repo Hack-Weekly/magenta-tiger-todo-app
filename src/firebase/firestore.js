@@ -9,13 +9,13 @@ import {
   where,
 } from 'firebase/firestore';
 import { db } from './auth';
-
-export const updateTasks = async (userUID, id, name, date) => {
+export const updateTasks = async (userUID, id, name, date, dueDate) => {
   try {
     const docRef = await addDoc(collection(db, 'tasks'), {
       uid: userUID,
       name,
       date,
+      dueDate,
       isCompleted: false,
       isFavourited: false,
     });
@@ -25,10 +25,10 @@ export const updateTasks = async (userUID, id, name, date) => {
   }
 };
 
-export const editTask = async (docID, name) => {
+export const editTask = async (docID, name, dueDate) => {
   try {
     const taskRef = doc(db, 'tasks', docID);
-    await updateDoc(taskRef, { name });
+    await updateDoc(taskRef, { name, dueDate });
   } catch (err) {
     console.error(err);
   }
@@ -52,6 +52,7 @@ export const getTasks = async (userUID) => {
       id: doc.data().id,
       name: doc.data().name,
       date: doc.data().date,
+      dueDate: doc.data().dueDate,
       isCompleted: doc.data().isCompleted,
       isFavourited: doc.data().isFavourited,
     }));
@@ -78,3 +79,4 @@ export const toggleFavourite = async (todo) => {
     console.error(err);
   }
 };
+
