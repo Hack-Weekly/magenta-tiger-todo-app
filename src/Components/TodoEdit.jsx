@@ -3,6 +3,7 @@ import { editTask } from '../firebase/firestore';
 import { Button } from './Button';
 
 const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
+
   const [isEditing, setIsEditing] = useState(false);
   const [taskName, setTaskName] = useState(name);
 
@@ -51,4 +52,5 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
 };
 
 export default TodoEdit;
+
 
