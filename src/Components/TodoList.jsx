@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toggleComplete, deleteTask } from '../firebase/firestore';
+import { Button } from './Button';
 import TodoEdit from './TodoEdit';
 import dateConvert from './utilFunctions/dateConvert';
 
@@ -49,14 +50,11 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                           getTasksFromFirebase={getTasksFromFirebase}
                         />
                       </div>
-                      <button
-                        className="danger-button button-base"
-                        onClick={() => {
-                          handleDelete(todo.docID);
-                        }}
-                      >
-                        Delete
-                      </button>
+                      <Button
+                        type="danger"
+                        btnText="Delete"
+                        onClick={() => handleDelete(todo.docID)}
+                      />
                     </li>
                   );
                 })
@@ -100,14 +98,11 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         name={todo.name}
                         getTasksFromFirebase={getTasksFromFirebase}
                       />
-                      <button
-                        className="danger-button button-base"
-                        onClick={() => {
-                          handleDelete(todo.docID);
-                        }}
-                      >
-                        Delete
-                      </button>
+                      <Button
+                        type="danger"
+                        btnText="Delete"
+                        onClick={() => handleDelete(todo.docID)}
+                      />
                     </li>
                   );
                 })
