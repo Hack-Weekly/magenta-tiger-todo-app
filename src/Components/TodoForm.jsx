@@ -1,20 +1,33 @@
-import { nanoid } from "nanoid";
-import { useState } from "react";
-import { updateTasks } from "../firebase/firestore";
-import { Button } from "./Button";
+import { nanoid } from 'nanoid';
+import { useState, forwardRef } from 'react';
+import { updateTasks } from '../firebase/firestore';
+import { Button } from './Button';
 
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import dateConvert from './utilFunctions/dateConvert';
 
 export default function TodoForm({ userUID, getTasksFromFirebase }) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
+  const [dueDate, setDueDate] = useState('');
 
   const addTodo = async (event) => {
     event.preventDefault();
     if (inputValue.length > 0) {
-      await updateTasks(userUID, nanoid(), inputValue, Date.now());
+      await updateTasks(userUID, nanoid(), inputValue, Date.now(), dueDate);
       await getTasksFromFirebase();
-      setInputValue("");
+      setInputValue('');
     }
   };
+
+  const ReactDatePickerInput = forwardRef((props, ref) => (
+    <Button
+      btnText={dueDate.length === 0 ? 'No due date' : dateConvert(dueDate)}
+      type="outlined"
+      ref={ref}
+      {...props}
+    />
+  ));
 
   return (
     <section className="grid gap-4 p-5">
@@ -31,6 +44,22 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
             type="text"
           />
         </label>
+        <div className="flex gap-1">
+          <ReactDatePicker
+            wrapperClassName="selector-date-wrapper"
+            shouldCloseOnSelect
+            timeCaption="time"
+            dateFormat="MMM d, yyyy"
+            selected={dueDate}
+            onChange={(date) => setDueDate(date)}
+            name="datePicker"
+            customInput={<ReactDatePickerInput />}
+          />
+          {dueDate.length === 0 ? null : (
+            <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
+          )}
+        </div>
+
         <Button btnText="Add" htmlType="submit" />
       </form>
     </section>
