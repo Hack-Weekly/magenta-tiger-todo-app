@@ -1,53 +1,54 @@
-import { useState } from "react";
-import { editTask } from "../firebase/firestore";
-import { Button } from "./Button";
+import { useState } from "react"
+import { editTask } from "../firebase/firestore"
+import { Button } from "./Button"
 
 const TodoEdit = ({ docID, name, getTasksFromFirebase }) => {
-  const [isEditing, setIsEditing] = useState(false)
-  const [taskName, setTaskName] = useState(name)
 
-  const handleEdit = () => {
-    setIsEditing((prevState) => !prevState)
-    setTaskName(name)
-  }
+    const [isEditing, setIsEditing] = useState(false)
+    const [taskName, setTaskName] = useState(name)
 
-  const handleTaskChange = (event) => {
-    setTaskName(event.target.value)
-  }
+    const handleEdit = () => {
+        setIsEditing(prevState => !prevState)
+        setTaskName(name)
+    }
 
-  const handleSave = async (e) => {
-    e.preventDefault()
+    const handleTaskChange = event => {
+        setTaskName(event.target.value)
+    }
 
-    await editTask(docID, taskName)
-    await getTasksFromFirebase()
-    setIsEditing(false)
-  }
+    const handleSave = async e => {
+        e.preventDefault()
 
-  return (
-    <div>
-      <Button
-        title="Edit task"
-        onClick={handleEdit}
-        btnText={!isEditing ? "Edit" : "Close"}
-        type="outlined"
-      />
+        await editTask(docID, taskName)
+        await getTasksFromFirebase()
+        setIsEditing(false)
+    }
 
-      {isEditing ? (
-        <form onSubmit={(e) => handleSave(e)}>
-          <label htmlFor="title">Task:</label>
-          <input
-            value={taskName}
-            title="Task name"
-            placeholder="Task name"
-            onChange={handleTaskChange}
-            type="text"
-            className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
-          />
-          <Button btnText="Save" title="Save task" />
-        </form>
-      ) : null}
-    </div>
-  )
+    return (
+        <div>
+            <Button
+                title="Edit task"
+                onClick={handleEdit}
+                btnText={!isEditing ? "Edit" : "Close"}
+                type="outlined"
+            />
+
+            {isEditing ? (
+                <form onSubmit={e => handleSave(e)}>
+                    <label htmlFor="title">Task:</label>
+                    <input
+                        value={taskName}
+                        title="Task name"
+                        placeholder="Task name"
+                        onChange={handleTaskChange}
+                        type="text"
+                        className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+                    />
+                    <Button btnText="Save" title="Save task" />
+                </form>
+            ) : null}
+        </div>
+    )
 }
 
 export default TodoEdit
