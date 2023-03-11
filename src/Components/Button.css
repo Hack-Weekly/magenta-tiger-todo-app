@@ -1,0 +1,8 @@
+.button {
+  display: inline;
+  min-width: min-content;
+  padding-block: 4px;
+  padding-inline: 20px;
+  background-color: var(--colors-blue);
+  border-radius: 4px;
+}

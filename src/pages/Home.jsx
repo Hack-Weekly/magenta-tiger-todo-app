@@ -4,6 +4,7 @@ import TodoList from "../Components/TodoList";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../Components/Button";
 import { auth, logout } from "../firebase/auth";
 import { getTasks } from "../firebase/firestore";
 
@@ -37,6 +38,7 @@ const Home = () => {
 
   return (
     <>
+      <Button btnText={"hello"} />
       <TodoForm userUID={userID} getTasksFromFirebase={getTasksFromFirebase} />
       <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
       <button
