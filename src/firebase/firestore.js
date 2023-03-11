@@ -9,7 +9,6 @@ import {
   where,
 } from 'firebase/firestore';
 import { db } from './auth';
-
 export const updateTasks = async (userUID, id, name, date, dueDate) => {
   try {
     const docRef = await addDoc(collection(db, 'tasks'), {
@@ -18,6 +17,7 @@ export const updateTasks = async (userUID, id, name, date, dueDate) => {
       date,
       dueDate,
       isCompleted: false,
+      isFavourited: false,
     });
     await updateDoc(docRef, { docID: docRef.id, id });
   } catch (err) {
@@ -54,6 +54,7 @@ export const getTasks = async (userUID) => {
       date: doc.data().date,
       dueDate: doc.data().dueDate,
       isCompleted: doc.data().isCompleted,
+      isFavourited: doc.data().isFavourited,
     }));
     return tasks;
   } catch (err) {
@@ -69,3 +70,13 @@ export const toggleComplete = async (todo) => {
     console.error(err);
   }
 };
+
+export const toggleFavourite = async (todo) => {
+  try {
+    const taskRef = doc(db, 'tasks', todo.docID);
+    await updateDoc(taskRef, { isFavourited: !todo.isFavourited });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
