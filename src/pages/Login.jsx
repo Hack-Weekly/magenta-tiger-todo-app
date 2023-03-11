@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { auth, getErrorMessage, signInWithGoogle } from "../firebase/auth";
+import { auth, getErrorMessage, signInWithGoogle } from '../firebase/auth';
 
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Button } from "../Components/Button";
-import { logInWithEmailAndPassword } from "../firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Button } from '../Components/Button';
+import { logInWithEmailAndPassword } from '../firebase/auth';
 
 const Login = () => {
   const [user] = useAuthState(auth);
@@ -16,16 +16,16 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate('/');
     }
   }, [user]);
 
   const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
-  const [validationError, setValidationError] = useState("");
+  const [validationError, setValidationError] = useState('');
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -37,19 +37,19 @@ const Login = () => {
 
     // Validate the email and password before logging in
     if (!validateEmail(loginForm.email)) {
-      setValidationError("Please enter a valid email address.");
+      setValidationError('Please enter a valid email address.');
       return;
     } else {
-      setValidationError("");
+      setValidationError('');
     }
 
     if (!validatePassword(loginForm.password)) {
       setValidationError(
-        "Please enter a password that is at least 8 characters long."
+        'Please enter a password that is at least 8 characters long.'
       );
       return;
     } else {
-      setValidationError("");
+      setValidationError('');
     }
     try {
       await logInWithEmailAndPassword(loginForm.email, loginForm.password);
@@ -115,12 +115,12 @@ const Login = () => {
             </div>
           </div>
         </form>
-        <button
-          className="bg-green-500 hover:bg-green-700 text-white font-normal py-1 px-4 rounded mt-2"
+        <Button
+          btnText="Sign Up with Google"
+          title="Login"
           onClick={signInWithGoogle}
-        >
-          Sign Up with Google
-        </button>
+          type="success"
+        />
       </div>
     </>
   );
