@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
-import { toggleComplete, deleteTask } from '../firebase/firestore';
+import {
+  toggleComplete,
+  deleteTask,
+  toggleFavourite,
+} from '../firebase/firestore';
 import { Button } from './Button';
+import { hollowStar } from './icons/icon';
+import { fullStar } from './icons/icon';
 import TodoEdit from './TodoEdit';
 import dateConvert from './utilFunctions/dateConvert';
 
@@ -18,6 +24,11 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
 
   const handleDelete = async (id) => {
     await deleteTask(id);
+    await getTasksFromFirebase();
+  };
+
+  const markAsFavourited = async (todo) => {
+    await toggleFavourite(todo);
     await getTasksFromFirebase();
   };
 
@@ -55,6 +66,13 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         btnText="Delete"
                         onClick={() => handleDelete(todo.docID)}
                       />
+                      <button
+                        onClick={() => {
+                          markAsFavourited(todo);
+                        }}
+                      >
+                        {todo.isFavourited ? fullStar : hollowStar}
+                      </button>
                     </li>
                   );
                 })
@@ -103,6 +121,13 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         btnText="Delete"
                         onClick={() => handleDelete(todo.docID)}
                       />
+                      <button
+                        onClick={() => {
+                          markAsFavourited(todo);
+                        }}
+                      >
+                        {todo.isFavourited ? fullStar : hollowStar}
+                      </button>
                     </li>
                   );
                 })
