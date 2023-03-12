@@ -5,20 +5,53 @@ import { menuBars, xMark } from './icons/icon';
 export const Nav = ({ tasks }) => {
   const [tags, setTags] = useState([]);
   const [isMenuClosed, setIsMenuClosed] = useState(false);
+  const [filteredTags, setFilteredTags] = useState([]);
 
   const openMenu = () => {
     setIsMenuClosed(!isMenuClosed);
   };
 
+  //set Tags if tasks are available//
   useEffect(() => {
     if (tasks) {
-      setTags(
-        tasks.map((todo) => {
-          return { tagName: todo.tag, id: nanoid() };
-        })
-      );
+      const newTags = tasks.map((todo) => {
+        return { tagName: todo.tag, id: nanoid(), amount: 0 };
+      });
+      setTags(newTags);
     }
   }, [tasks]);
+
+  //update tag amount//
+  useEffect(() => {
+    //prevent infinite loop//
+    let shouldUpdate = false;
+    const newTags = [...tags];
+    newTags.forEach((tag) => {
+      const newAmount = sumUp(newTags, tag.tagName);
+      if (tag.amount !== newAmount) {
+        tag.amount = newAmount;
+        shouldUpdate = true;
+      }
+    });
+    if (shouldUpdate) {
+      setTags(newTags);
+    }
+    //Ensure duplicates are removed//
+    const newFilteredTags = tags.filter((tag, index, self) => {
+      return index === self.findIndex((item) => item.tagName === tag.tagName);
+    });
+    setFilteredTags(newFilteredTags);
+  }, [tags]);
+
+  function sumUp(arr, targetTag) {
+    let sum = 0;
+    arr.forEach((item) => {
+      if (item.tagName === targetTag) {
+        sum += 1;
+      }
+    });
+    return sum;
+  }
 
   return (
     <div>
@@ -53,10 +86,15 @@ export const Nav = ({ tasks }) => {
             ? tags.map((tag) => {
                 return (
                   <li className="flex" key={tag.id}>
-                    <button className="text-left first-letter:uppercase">
+                    <button
+                      onClick={(e) => {
+                        filterByTag(todo.tagName);
+                      }}
+                      className="text-left first-letter:uppercase"
+                    >
                       {tag.tagName}
                     </button>
-                    <p className="ml-auto">5</p>{' '}
+                    <p className="ml-auto">{tag.amount}</p>
                     {/* temp fixed number for display*/}
                   </li>
                 );
