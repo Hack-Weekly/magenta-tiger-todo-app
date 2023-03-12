@@ -61,8 +61,6 @@ const TodoList = ({ tasks, getTasksFromFirebase, selectedTag }) => {
                     })
                     .sort((a, b) => b.date - a.date)
                     .map((todo) => {
-                      console.log(todo.tag);
-
                       return (
                         <li
                           className="list-inside flex justify-between mb-5 items-center"

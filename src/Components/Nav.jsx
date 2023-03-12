@@ -10,8 +10,6 @@ export const Nav = ({ tasks, onSelectedTag }) => {
 
   const baseTags = ['all', 'favorite', 'completed'];
 
-  console.log(isSelected);
-
   const openMenu = () => {
     setIsMenuClosed(!isMenuClosed);
   };
@@ -110,10 +108,10 @@ export const Nav = ({ tasks, onSelectedTag }) => {
 
         <hr className="text-light-grey my-4 px-5" />
 
-        <h3 className="text-base font-bold text-light-grey px-5">Your tags</h3>
-        <ol className="flex flex-col gap-1 mt-2">
-          {tags
-            ? tags.map((tag) => {
+        <h3 className="text-base font-bold text-light-grey ">Your tags</h3>
+        <ol className="flex flex-col gap-2 mt-2">
+          {filteredTags
+            ? filteredTags.map((tag) => {
                 return (
                   <li
                     key={tag.id}
@@ -137,7 +135,6 @@ export const Nav = ({ tasks, onSelectedTag }) => {
                         {tag.amount}
                       </span>
                     </button>
-                    {/* temp fixed number for display*/}
                   </li>
                 );
               })
