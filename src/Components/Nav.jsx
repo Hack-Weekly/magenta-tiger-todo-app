@@ -31,7 +31,7 @@ export const Nav = ({ tasks }) => {
     if (shouldUpdate) {
       setTags(newTags);
     }
-    //ensure duplicates are removed//
+    //Ensure duplicates are removed//
     const newFilteredTags = tags.filter((tag, index, self) => {
       return index === self.findIndex((item) => item.tagName === tag.tagName);
     });
@@ -47,8 +47,6 @@ export const Nav = ({ tasks }) => {
     });
     return sum;
   }
-
-  function filterByTag(targetTag) {}
 
   return (
     <nav>
