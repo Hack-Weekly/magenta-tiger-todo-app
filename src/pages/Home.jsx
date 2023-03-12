@@ -39,9 +39,9 @@ const Home = () => {
 
   return (
     // change styling as appropriate//
-    <div className="md:grid md:grid-cols-[auto,1fr] md:gap-5">
+    <div className="relative overflow-hidden md:grid md:grid-cols-[auto,1fr] md:gap-5">
       <Nav tasks={tasks} />
-      <main className="grid gap-8 mt-14">
+      <main className="grid gap-8">
         <TodoForm
           userUID={userID}
           getTasksFromFirebase={getTasksFromFirebase}

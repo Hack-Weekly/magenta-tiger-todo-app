@@ -44,7 +44,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   ));
 
   return (
-    <div>
+    <div className="mt-14">
       <div className="ml-5">
         <Button onClick={openTodoForm} btnText="+ New task" type="outlined" />
       </div>
