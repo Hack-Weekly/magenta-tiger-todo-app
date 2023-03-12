@@ -16,14 +16,14 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate, tag }) => {
   const handleEdit = () => {
     setIsEditing((prevState) => !prevState);
 
-    if (dueDate.length === 0) {
+    if (!dueDate) {
       setTaskDueDate('');
     } else {
       setTaskDueDate(dueDate.toDate());
     }
 
     setTaskName(name);
-    seTaskTag(tag);
+    setTaskTag(tag);
   };
 
   const handleNameChange = (event) => {
@@ -93,7 +93,7 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate, tag }) => {
               name="datePicker"
               customInput={<ReactDatePickerInput />}
             />
-            {taskDueDate.length > 0 && (
+            {taskDueDate.length !== 0 && (
               <Button
                 btnText="X"
                 type="danger"
