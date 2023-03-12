@@ -6,9 +6,22 @@ export const Nav = ({ tasks }) => {
   const [tags, setTags] = useState([]);
   const [isMenuClosed, setIsMenuClosed] = useState(false);
   const [filteredTags, setFilteredTags] = useState([]);
+  const [isSelected, setIsSelected] = useState('');
+
+  const baseTags = ['all', 'favorite', 'completed'];
+
+  console.log(isSelected);
 
   const openMenu = () => {
     setIsMenuClosed(!isMenuClosed);
+  };
+
+  const selectTag = (id) => {
+    setIsSelected(id);
+
+    if (window.innerWidth <= 768) {
+      openMenu();
+    }
   };
 
   //set Tags if tasks are available//
@@ -60,7 +73,7 @@ export const Nav = ({ tasks }) => {
       </button>
 
       <nav
-        className="absolute top-0 bottom-0 left-0 right-0 transition bg-white-grey md:relative md:h-full md:block md:w-56 p-5 md:-left-[100%]"
+        className="absolute top-0 bottom-0 left-0 right-0 transition bg-white-grey md:relative md:h-full md:block md:w-56 md:-left-[100%]"
         style={{
           transform: !isMenuClosed && 'translateX(100%)',
         }}
@@ -68,33 +81,61 @@ export const Nav = ({ tasks }) => {
         <button className="absolute top-5 right-5 md:hidden" onClick={openMenu}>
           {xMark}
         </button>
-        <h2 className="text-xl font-bold text-dark-blue text-center mt-8 md:mt-0">
+        <h2 className="text-xl font-bold text-dark-blue text-center p-5 mt-8 md:mt-0">
           🐯 Magenta Tiger Todo App
         </h2>
 
         <ol className="flex flex-col gap-2 mt-4">
-          <li>All</li>
-          <li>Favorites</li>
-          <li>Completed</li>
+          {baseTags.map((tag) => (
+            <li
+              key={tag}
+              style={{
+                'background-color': tag === isSelected && 'var(--colors-blue)',
+                color: tag === isSelected && 'var(--colors-white)',
+              }}
+              className="px-5 py-1 transition-colors"
+            >
+              <button
+                onClick={(e) => {
+                  selectTag(tag);
+                }}
+                className="inline-flex justify-between w-full"
+              >
+                <span className="first-letter:uppercase">{tag}</span>
+              </button>
+            </li>
+          ))}
         </ol>
 
-        <hr className="text-light-grey my-4" />
+        <hr className="text-light-grey my-4 px-5" />
 
-        <h3 className="text-base font-bold text-light-grey ">Your tags</h3>
-        <ol className="flex flex-col gap-2 mt-2">
+        <h3 className="text-base font-bold text-light-grey px-5">Your tags</h3>
+        <ol className="flex flex-col gap-1 mt-2">
           {tags
             ? tags.map((tag) => {
                 return (
-                  <li className="flex" key={tag.id}>
+                  <li
+                    key={tag.id}
+                    style={{
+                      'background-color':
+                        tag.id === isSelected && 'var(--colors-blue)',
+                      color: tag.id === isSelected && 'var(--colors-white)',
+                    }}
+                    className="px-5 py-1 transition-colors"
+                  >
                     <button
                       onClick={(e) => {
-                        filterByTag(todo.tagName);
+                        selectTag(tag.id);
                       }}
-                      className="text-left first-letter:uppercase"
+                      className="inline-flex justify-between w-full"
                     >
-                      {tag.tagName}
+                      <span className="first-letter:uppercase">
+                        {tag.tagName}
+                      </span>
+                      <span className="w-6 h-6 rounded-full bg-ice-blue text-dark-blue">
+                        {tag.amount}
+                      </span>
                     </button>
-                    <p className="ml-auto">{tag.amount}</p>
                     {/* temp fixed number for display*/}
                   </li>
                 );
