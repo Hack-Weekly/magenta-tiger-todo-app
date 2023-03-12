@@ -1,4 +1,5 @@
 import { Button } from '../Components/Button';
+import Nav from '../Components/Nav';
 import TodoForm from '../Components/TodoForm';
 import TodoList from '../Components/TodoList';
 
@@ -37,11 +38,17 @@ const Home = () => {
   }, [user]);
 
   return (
-    <>
-      <TodoForm userUID={userID} getTasksFromFirebase={getTasksFromFirebase} />
-      <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
-      <Button onClick={logout} type="danger" btnText="Log out" />
-    </>
+    <div className="flex items-center">
+      <Nav tasks={tasks} />
+      <main>
+        <TodoForm
+          userUID={userID}
+          getTasksFromFirebase={getTasksFromFirebase}
+        />
+        <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
+        <Button onClick={logout} type="danger" btnText="Log out" />
+      </main>
+    </div>
   );
 };
 
