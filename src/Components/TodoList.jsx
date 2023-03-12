@@ -70,7 +70,9 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                             </p>
                           </div>
                           {todo.dueDate.length !== 0 && (
-                            <p>{formatDueDate(todo.dueDate)}</p>
+                            <p className="text-xs">
+                              {formatDueDate(todo.dueDate)}
+                            </p>
                           )}
                         </div>
                       </div>
