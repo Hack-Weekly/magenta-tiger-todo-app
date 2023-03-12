@@ -82,8 +82,8 @@ export const Nav = ({ tasks }) => {
 
         <h3 className="text-base font-bold text-light-grey ">Your tags</h3>
         <ol className="flex flex-col gap-2 mt-2">
-          {tags
-            ? tags.map((tag) => {
+          {filteredTags
+            ? filteredTags.map((tag) => {
                 return (
                   <li className="flex" key={tag.id}>
                     <button
