@@ -15,16 +15,23 @@ export const Nav = ({ tasks }) => {
   }, [tasks]);
 
   return (
-    <nav className="hidden md:block">
-      <ol className="flex flex-col gap-3">
+    <nav className="hidden md:block md:bg-white-grey md:w-56 md:p-5">
+      <h2 className="text-xl font-bold text-dark-blue text-center">
+        🐯 Magenta Tiger Todo App
+      </h2>
+
+      <h3 className="text-base font-bold text-light-grey mt-4">Your tags</h3>
+      <ol className="flex flex-col gap-2 mt-2">
         {tags
           ? tags.map((tag) => {
               return (
-                <div className="flex w-40" key={tag.id}>
-                  <button className="text-left">{tag.tagName}</button>
+                <li className="flex" key={tag.id}>
+                  <button className="text-left first-letter:uppercase">
+                    {tag.tagName}
+                  </button>
                   <p className="ml-auto">5</p>{' '}
                   {/* temp fixed number for display*/}
-                </div>
+                </li>
               );
             })
           : ''}

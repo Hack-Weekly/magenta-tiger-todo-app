@@ -39,8 +39,12 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   ));
 
   return (
-    <section>
-      <form className="grid gap-4 p-5 bg-ice-blue" onSubmit={addTodo}>
+    <section className="p-5 bg-ice-blue md:rounded-lg">
+      <h2 className="text-lg font-bold mb-2">Add new todo</h2>
+      <form
+        className="grid gap-2 sm:max-w-[300px]  md:max-w-xs"
+        onSubmit={addTodo}
+      >
         <label className="flex justify-between">
           Your todo:
           <input
@@ -49,7 +53,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
               setInputValue(event.target.value);
             }}
             placeholder="Your todo"
-            className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+            className="bg-slate-200 pl-2 rounded-md border border-y-dark-blue"
             type="text"
           />
         </label>
@@ -61,7 +65,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
               setTag(event.target.value);
             }}
             placeholder="Tag"
-            className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+            className="bg-slate-200 pl-2 rounded-md border border-y-dark-blue"
             type="text"
           />
         </label>
@@ -82,7 +86,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
           )}
         </div>
 
-        <div className="max-w-[137px]">
+        <div className="max-w-[137px] mt-2">
           <Button btnText="Add" htmlType="submit" />
         </div>
       </form>
