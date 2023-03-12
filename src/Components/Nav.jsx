@@ -1,6 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import React, { useEffect, useState } from 'react';
 
 export const Nav = ({ tasks }) => {
   const [tags, setTags] = useState([]);
@@ -16,7 +15,7 @@ export const Nav = ({ tasks }) => {
   }, [tasks]);
 
   return (
-    <nav>
+    <nav className="hidden md:block">
       <ol className="flex flex-col gap-3">
         {tags
           ? tags.map((tag) => {

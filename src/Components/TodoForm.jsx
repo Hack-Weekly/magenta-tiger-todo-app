@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useState, forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { updateTasks } from '../firebase/firestore';
 import { Button } from './Button';
 
@@ -39,9 +39,9 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   ));
 
   return (
-    <section className="grid gap-4 p-5">
-      <form className="flex gap-2" onSubmit={addTodo}>
-        <label>
+    <section>
+      <form className="grid gap-4" onSubmit={addTodo}>
+        <label className="flex justify-between">
           Your todo:
           <input
             value={inputValue}
@@ -53,7 +53,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
             type="text"
           />
         </label>
-        <label>
+        <label className="flex justify-between">
           Tag:
           <input
             value={tag}
@@ -66,23 +66,24 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
           />
         </label>
 
+        <div className="flex gap-1">
+          <ReactDatePicker
+            wrapperClassName="selector-date-wrapper"
+            shouldCloseOnSelect
+            timeCaption="time"
+            dateFormat="MMM d, yyyy"
+            selected={dueDate}
+            onChange={(date) => setDueDate(date)}
+            name="datePicker"
+            customInput={<ReactDatePickerInput />}
+          />
+          {dueDate.length !== 0 && (
+            <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
+          )}
+        </div>
+
         <Button btnText="Add" htmlType="submit" />
       </form>
-      <div className="flex gap-1">
-        <ReactDatePicker
-          wrapperClassName="selector-date-wrapper"
-          shouldCloseOnSelect
-          timeCaption="time"
-          dateFormat="MMM d, yyyy"
-          selected={dueDate}
-          onChange={(date) => setDueDate(date)}
-          name="datePicker"
-          customInput={<ReactDatePickerInput />}
-        />
-        {dueDate.length !== 0 && (
-          <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
-        )}
-      </div>
     </section>
   );
 }

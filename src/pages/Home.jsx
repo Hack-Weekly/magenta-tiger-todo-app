@@ -39,9 +39,9 @@ const Home = () => {
 
   return (
     // change styling as appropriate//
-    <div className="flex items-center gap-10 justify-between">
+    <div>
       <Nav tasks={tasks} />
-      <main>
+      <main className="grid gap-10 mt-14">
         <TodoForm
           userUID={userID}
           getTasksFromFirebase={getTasksFromFirebase}
