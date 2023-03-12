@@ -7,7 +7,6 @@ export const Nav = ({ tasks }) => {
   const [isMenuClosed, setIsMenuClosed] = useState(false);
 
   const openMenu = () => {
-    console.log(isMenuClosed);
     setIsMenuClosed(!isMenuClosed);
   };
 
