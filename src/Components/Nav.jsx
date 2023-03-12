@@ -89,7 +89,7 @@ export const Nav = ({ tasks, onSelectedTag }) => {
             <li
               key={tag}
               style={{
-                'background-color': tag === isSelected && 'var(--colors-blue)',
+                'backgroundColor': tag === isSelected && 'var(--colors-blue)',
                 color: tag === isSelected && 'var(--colors-white)',
               }}
               className="px-5 py-1 transition-colors"
@@ -117,7 +117,7 @@ export const Nav = ({ tasks, onSelectedTag }) => {
                   <li
                     key={tag.id}
                     style={{
-                      'background-color':
+                      backgroundColor:
                         tag.tagName === isSelected && 'var(--colors-blue)',
                       color:
                         tag.tagName === isSelected && 'var(--colors-white)',
