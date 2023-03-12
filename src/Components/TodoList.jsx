@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
-  toggleComplete,
   deleteTask,
+  toggleComplete,
   toggleFavourite,
 } from '../firebase/firestore';
 import { Button } from './Button';
-import { hollowStar } from './icons/icon';
-import { fullStar } from './icons/icon';
+import { fullStar, hollowStar } from './icons/icon';
 import TodoEdit from './TodoEdit';
 import dateConvert, { formatDueDate } from './utilFunctions/dateConvert';
 

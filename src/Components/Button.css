@@ -1,6 +1,7 @@
 .button-base.button-base {
   display: inline;
   min-width: min-content;
+  height: 32px;
   padding-block: 4px;
   padding-inline: 24px;
   background-color: var(--colors-blue);
