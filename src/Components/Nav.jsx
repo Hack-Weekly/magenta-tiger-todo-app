@@ -89,7 +89,7 @@ export const Nav = ({ tasks, onSelectedTag }) => {
             <li
               key={tag}
               style={{
-                'backgroundColor': tag === isSelected && 'var(--colors-blue)',
+                backgroundColor: tag === isSelected && 'var(--colors-blue)',
                 color: tag === isSelected && 'var(--colors-white)',
               }}
               className="px-5 py-1 transition-colors"
@@ -112,7 +112,6 @@ export const Nav = ({ tasks, onSelectedTag }) => {
         <ol className="flex flex-col gap-2 mt-2">
           {filteredTags
             ? filteredTags.map((tag) => {
-                console.log(tag.tagName);
                 return (
                   <li
                     key={tag.id}
