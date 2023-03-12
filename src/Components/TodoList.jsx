@@ -9,7 +9,7 @@ import { fullStar, hollowStar } from './icons/icon';
 import TodoEdit from './TodoEdit';
 import dateConvert, { formatDueDate } from './utilFunctions/dateConvert';
 
-const TodoList = ({ tasks, getTasksFromFirebase }) => {
+const TodoList = ({ tasks, getTasksFromFirebase, selectedTag }) => {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -34,6 +34,11 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
   return (
     <section>
       <div className="grid gap-2">
+        {selectedTag && (
+          <h2 className="text-2xl font-bold first-letter:uppercase">
+            {selectedTag}
+          </h2>
+        )}
         <h2 className="text-xl font-bold text-light-grey">Open</h2>
         <ul className="list-disc">
           {todos
@@ -41,6 +46,8 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                 .filter((todo) => !todo.isCompleted)
                 .sort((a, b) => b.date - a.date)
                 .map((todo) => {
+                  console.log(todo.tag);
+
                   return (
                     <li
                       className="list-inside flex justify-between mb-5 items-center"

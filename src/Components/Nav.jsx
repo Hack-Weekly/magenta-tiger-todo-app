@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
 import { menuBars, xMark } from './icons/icon';
 
-export const Nav = ({ tasks }) => {
+export const Nav = ({ tasks, onSelectedTag }) => {
   const [tags, setTags] = useState([]);
   const [isMenuClosed, setIsMenuClosed] = useState(false);
   const [filteredTags, setFilteredTags] = useState([]);
@@ -16,8 +16,9 @@ export const Nav = ({ tasks }) => {
     setIsMenuClosed(!isMenuClosed);
   };
 
-  const selectTag = (id) => {
-    setIsSelected(id);
+  const selectTag = (tagName) => {
+    setIsSelected(tagName);
+    onSelectedTag(tagName);
 
     if (window.innerWidth <= 768) {
       openMenu();
@@ -125,7 +126,7 @@ export const Nav = ({ tasks }) => {
                   >
                     <button
                       onClick={(e) => {
-                        selectTag(tag.id);
+                        selectTag(tag.tagName);
                       }}
                       className="inline-flex justify-between w-full"
                     >
