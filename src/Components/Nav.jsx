@@ -28,7 +28,7 @@ export const Nav = ({ tasks }) => {
       </button>
 
       <nav
-        className="absolute top-0 bottom-0 left-0 right-0 transition bg-white-grey md:relative md:h-full md:block md:w-56 p-5"
+        className="absolute top-0 bottom-0 left-0 right-0 transition bg-white-grey md:relative md:h-full md:block md:w-56 p-5 md:-left-[100%]"
         style={{
           transform: !isMenuClosed && 'translateX(100%)',
         }}
