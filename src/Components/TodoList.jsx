@@ -34,11 +34,10 @@ const TodoList = ({ tasks, getTasksFromFirebase, selectedTag }) => {
   return (
     <section>
       <div className="grid gap-2">
-        {selectedTag && (
-          <h2 className="text-2xl font-bold first-letter:uppercase">
-            {selectedTag}
-          </h2>
-        )}
+        <h2 className="text-2xl font-bold first-letter:uppercase">
+          {selectedTag ? selectedTag : 'All'}
+        </h2>
+
         {selectedTag !== 'completed' && (
           <>
             <h2 className="text-xl font-bold text-light-grey">Open</h2>

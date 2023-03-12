@@ -108,17 +108,19 @@ export const Nav = ({ tasks, onSelectedTag }) => {
 
         <hr className="text-light-grey my-4 px-5" />
 
-        <h3 className="text-base font-bold text-light-grey ">Your tags</h3>
+        <h3 className="text-base font-bold text-light-grey px-5">Your tags</h3>
         <ol className="flex flex-col gap-2 mt-2">
           {filteredTags
             ? filteredTags.map((tag) => {
+                console.log(tag.tagName);
                 return (
                   <li
                     key={tag.id}
                     style={{
                       'background-color':
-                        tag.id === isSelected && 'var(--colors-blue)',
-                      color: tag.id === isSelected && 'var(--colors-white)',
+                        tag.tagName === isSelected && 'var(--colors-blue)',
+                      color:
+                        tag.tagName === isSelected && 'var(--colors-white)',
                     }}
                     className="px-5 py-1 transition-colors"
                   >
