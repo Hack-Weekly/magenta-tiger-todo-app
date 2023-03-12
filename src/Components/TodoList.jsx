@@ -34,7 +34,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
   return (
     <section>
       <div className="grid gap-2">
-        <h2 className="text-xl font-bold text-slate-400">Open</h2>
+        <h2 className="text-xl font-bold text-light-grey">Open</h2>
         <ul className="list-disc">
           {todos
             ? todos
@@ -55,14 +55,17 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                           }}
                         />
                         <div className="flex flex-col">
-                          <label htmlFor={todo.name} className="text-sm">
+                          <label
+                            htmlFor={todo.name}
+                            className="text-sm sm:text-base"
+                          >
                             {todo.name}
                           </label>
-                          <div className="flex text-xs gap-[2px]">
-                            <p>
+                          <div className="flex text-xs gap-[2px] ">
+                            <p className="first-letter:uppercase whitespace-nowrap">
                               {todo.tag} <span>•</span>
                             </p>
-                            <p className="text-xs text-blue">
+                            <p className="text-xs text-blue ">
                               {dateConvert(todo.date)}
                             </p>
                           </div>
@@ -102,7 +105,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
             : null}
         </ul>
 
-        <h2 className="text-xl font-bold text-slate-400">Done</h2>
+        <h2 className="text-xl font-bold text-light-grey">Done</h2>
         <ul className="list-disc">
           {todos
             ? todos
@@ -128,11 +131,14 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                           }}
                         />
                         <div className="flex flex-col">
-                          <label htmlFor={todo.name} className="text-sm">
+                          <label
+                            htmlFor={todo.name}
+                            className="text-sm sm:text-base"
+                          >
                             {todo.name}
                           </label>
                           <div className="flex text-xs gap-[2px]">
-                            <p>
+                            <p className="first-letter:uppercase  whitespace-nowrap">
                               {todo.tag} <span>•</span>
                             </p>
                             <p className="text-xs text-blue">

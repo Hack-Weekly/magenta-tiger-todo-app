@@ -39,15 +39,17 @@ const Home = () => {
 
   return (
     // change styling as appropriate//
-    <div>
+    <div className="md:grid md:grid-cols-[auto,1fr] md:gap-5">
       <Nav tasks={tasks} />
       <main className="grid gap-10 mt-14">
         <TodoForm
           userUID={userID}
           getTasksFromFirebase={getTasksFromFirebase}
         />
-        <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
-        <Button onClick={logout} type="danger" btnText="Log out" />
+        <div className="px-5">
+          <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
+          <Button onClick={logout} type="danger" btnText="Log out" />
+        </div>
       </main>
     </div>
   );

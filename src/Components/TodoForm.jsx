@@ -33,14 +33,14 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   const ReactDatePickerInput = forwardRef((props, ref) => (
     <Button
       btnText={dueDate.length === 0 ? 'No due date' : dateConvert(dueDate)}
-      type="outlined"
+      type="outlined-border"
       {...props}
     />
   ));
 
   return (
     <section>
-      <form className="grid gap-4" onSubmit={addTodo}>
+      <form className="grid gap-4 p-5 bg-ice-blue" onSubmit={addTodo}>
         <label className="flex justify-between">
           Your todo:
           <input
@@ -82,7 +82,9 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
           )}
         </div>
 
-        <Button btnText="Add" htmlType="submit" />
+        <div className="max-w-[137px]">
+          <Button btnText="Add" htmlType="submit" />
+        </div>
       </form>
     </section>
   );

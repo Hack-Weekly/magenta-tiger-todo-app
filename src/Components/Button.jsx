@@ -17,6 +17,8 @@ export const Button = ({
       className={
         type === 'outlined'
           ? 'outlined-button button-base'
+          : type === 'outlined-border'
+          ? 'outlined-border-button button-base'
           : type === 'success'
           ? 'success-button button-base'
           : type === 'danger'
@@ -28,4 +30,3 @@ export const Button = ({
     </button>
   );
 };
-
