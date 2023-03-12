@@ -52,6 +52,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                       />
                       <div>
                         <label>{todo.name}</label>
+                        <p>{todo.tag}</p>
                         <p className="text-xs">{dateConvert(todo.date)}</p>
                         {todo.dueDate.length !== 0 && (
                           <p>{formatDueDate(todo.dueDate)}</p>
@@ -64,6 +65,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                           docID={todo.docID}
                           name={todo.name}
                           getTasksFromFirebase={getTasksFromFirebase}
+                          tag={todo.tag}
                         />
                       </div>
                       <Button
@@ -111,6 +113,14 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                           style={{
                             textDecoration: todo.isCompleted && 'line-through',
                           }}
+                        >
+                          {todo.tag}
+                        </p>
+
+                        <p
+                          style={{
+                            textDecoration: todo.isCompleted && 'line-through',
+                          }}
                           className="text-xs"
                         >
                           {dateConvert(todo.date)}
@@ -131,6 +141,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                         name={todo.name}
                         getTasksFromFirebase={getTasksFromFirebase}
                         dueDate={todo.dueDate}
+                        tag={todo.tag}
                       />
                       <Button
                         type="danger"

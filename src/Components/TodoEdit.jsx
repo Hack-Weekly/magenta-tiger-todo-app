@@ -1,4 +1,4 @@
-import { useState, forwardRef, useEffect } from 'react';
+import { useState, forwardRef } from 'react';
 import { editTask } from '../firebase/firestore';
 import { Button } from './Button';
 
@@ -7,9 +7,10 @@ import dateConvert from './utilFunctions/dateConvert';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate }) => {
+const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate, tag }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [taskName, setTaskName] = useState(name);
+  const [taskTag, setTaskTag] = useState(tag);
   const [taskDueDate, setTaskDueDate] = useState('');
 
   const handleEdit = () => {
@@ -22,16 +23,20 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate }) => {
     }
 
     setTaskName(name);
+    seTaskTag(tag);
   };
 
-  const handleTaskChange = (event) => {
+  const handleNameChange = (event) => {
     setTaskName(event.target.value);
+  };
+  const handleTagChange = (event) => {
+    setTaskTag(event.target.value);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
 
-    await editTask(docID, taskName, taskDueDate);
+    await editTask(docID, taskName, taskDueDate, taskTag);
     await getTasksFromFirebase();
     setIsEditing(false);
   };
@@ -63,7 +68,15 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate }) => {
               value={taskName}
               title="Task name"
               placeholder="Task name"
-              onChange={handleTaskChange}
+              onChange={handleNameChange}
+              type="text"
+              className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+            />
+            <input
+              value={taskTag}
+              title="Task tag"
+              placeholder="Task tag"
+              onChange={handleTagChange}
               type="text"
               className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
             />
