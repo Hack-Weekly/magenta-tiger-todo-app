@@ -9,14 +9,23 @@ import dateConvert from './utilFunctions/dateConvert';
 
 export default function TodoForm({ userUID, getTasksFromFirebase }) {
   const [inputValue, setInputValue] = useState('');
+  const [tag, setTag] = useState('');
   const [dueDate, setDueDate] = useState('');
 
   const addTodo = async (event) => {
     event.preventDefault();
     if (inputValue.length > 0) {
-      await updateTasks(userUID, nanoid(), inputValue, Date.now(), dueDate);
+      await updateTasks(
+        userUID,
+        nanoid(),
+        inputValue,
+        Date.now(),
+        dueDate,
+        tag
+      );
       await getTasksFromFirebase();
       setInputValue('');
+      setTag('');
       setDueDate('');
     }
   };
@@ -40,6 +49,18 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
               setInputValue(event.target.value);
             }}
             placeholder="Your todo"
+            className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+            type="text"
+          />
+        </label>
+        <label>
+          Tag:
+          <input
+            value={tag}
+            onChange={(event) => {
+              setTag(event.target.value);
+            }}
+            placeholder="Tag"
             className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
             type="text"
           />
