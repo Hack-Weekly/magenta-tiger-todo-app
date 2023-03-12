@@ -13,7 +13,6 @@ const Home = () => {
   const [user, loading, error] = useAuthState(auth);
   const [userID, setUserID] = useState(null);
   const [tasks, setTasks] = useState(null);
-  console.log(tasks);
 
   const navigate = useNavigate();
 
