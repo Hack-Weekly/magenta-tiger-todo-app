@@ -33,12 +33,13 @@ const Home = () => {
     }
     if (user) {
       setUserID(user.uid);
-      getTasksFromFirebase(user.uid);
+      getTasksFromFirebase();
     }
   }, [user]);
 
   return (
-    <div className="flex items-center">
+    // change styling as appropriate//
+    <div className="flex items-center gap-10 justify-between">
       <Nav tasks={tasks} />
       <main>
         <TodoForm
