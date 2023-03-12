@@ -1,4 +1,4 @@
-import { useState, forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { editTask } from '../firebase/firestore';
 import { Button } from './Button';
 

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
-  toggleComplete,
   deleteTask,
+  toggleComplete,
   toggleFavourite,
 } from '../firebase/firestore';
 import { Button } from './Button';
-import { hollowStar } from './icons/icon';
-import { fullStar } from './icons/icon';
+import { fullStar, hollowStar } from './icons/icon';
 import TodoEdit from './TodoEdit';
 import dateConvert, { formatDueDate } from './utilFunctions/dateConvert';
 
@@ -35,7 +34,7 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
   return (
     <section>
       <div className="grid gap-2">
-        <h2 className="text-xl font-bold text-slate-400">Open</h2>
+        <h2 className="text-xl font-bold text-light-grey">Open</h2>
         <ul className="list-disc">
           {todos
             ? todos
@@ -43,50 +42,72 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                 .sort((a, b) => b.date - a.date)
                 .map((todo) => {
                   return (
-                    <li className="list-inside flex gap-2 mb-5 " key={todo.id}>
-                      <input
-                        type="checkbox"
-                        onChange={() => {
-                          markAsCompleted(todo);
-                        }}
-                      />
-                      <div>
-                        <label>{todo.name}</label>
-                        <p>{todo.tag}</p>
-                        <p className="text-xs">{dateConvert(todo.date)}</p>
-                        {todo.dueDate.length !== 0 && (
-                          <p>{formatDueDate(todo.dueDate)}</p>
-                        )}
+                    <li
+                      className="list-inside flex justify-between mb-5 items-center"
+                      key={todo.id}
+                    >
+                      <div className="flex gap-2">
+                        <input
+                          id={todo.name}
+                          type="checkbox"
+                          onChange={() => {
+                            markAsCompleted(todo);
+                          }}
+                        />
+                        <div className="flex flex-col">
+                          <label
+                            htmlFor={todo.name}
+                            className="text-sm sm:text-base"
+                          >
+                            {todo.name}
+                          </label>
+                          <div className="flex text-xs gap-[2px] ">
+                            <p className="first-letter:uppercase whitespace-nowrap">
+                              {todo.tag} <span>•</span>
+                            </p>
+                            <p className="text-xs text-blue ">
+                              {dateConvert(todo.date)}
+                            </p>
+                          </div>
+                          {todo.dueDate.length !== 0 && (
+                            <p className="text-xs">
+                              {formatDueDate(todo.dueDate)}
+                            </p>
+                          )}
+                        </div>
                       </div>
 
-                      <div>
-                        <TodoEdit
-                          dueDate={todo.dueDate}
-                          docID={todo.docID}
-                          name={todo.name}
-                          getTasksFromFirebase={getTasksFromFirebase}
-                          tag={todo.tag}
-                        />
+                      <div className="flex gap-2">
+                        <div className="grid justify-items-end gap-[6px]">
+                          <TodoEdit
+                            dueDate={todo.dueDate}
+                            docID={todo.docID}
+                            name={todo.name}
+                            getTasksFromFirebase={getTasksFromFirebase}
+                            tag={todo.tag}
+                          />
+                          <Button
+                            type="danger"
+                            btnText="Delete"
+                            onClick={() => handleDelete(todo.docID)}
+                          />
+                        </div>
+
+                        <button
+                          onClick={() => {
+                            markAsFavourited(todo);
+                          }}
+                        >
+                          {todo.isFavourited ? fullStar : hollowStar}
+                        </button>
                       </div>
-                      <Button
-                        type="danger"
-                        btnText="Delete"
-                        onClick={() => handleDelete(todo.docID)}
-                      />
-                      <button
-                        onClick={() => {
-                          markAsFavourited(todo);
-                        }}
-                      >
-                        {todo.isFavourited ? fullStar : hollowStar}
-                      </button>
                     </li>
                   );
                 })
             : null}
         </ul>
 
-        <h2 className="text-xl font-bold text-slate-400">Done</h2>
+        <h2 className="text-xl font-bold text-light-grey">Done</h2>
         <ul className="list-disc">
           {todos
             ? todos
@@ -94,67 +115,67 @@ const TodoList = ({ tasks, getTasksFromFirebase }) => {
                 .sort((a, b) => b.date - a.date)
                 .map((todo) => {
                   return (
-                    <li className="list-inside flex gap-2 mb-5" key={todo.id}>
-                      <input
-                        type="checkbox"
-                        onChange={() => {
-                          markAsCompleted(todo);
-                        }}
-                      />
-                      <div>
-                        <label
-                          style={{
-                            textDecoration: todo.isCompleted && 'line-through',
-                          }}
-                        >
-                          {todo.name}
-                        </label>
-                        <p
-                          style={{
-                            textDecoration: todo.isCompleted && 'line-through',
-                          }}
-                        >
-                          {todo.tag}
-                        </p>
-
-                        <p
-                          style={{
-                            textDecoration: todo.isCompleted && 'line-through',
-                          }}
-                          className="text-xs"
-                        >
-                          {dateConvert(todo.date)}
-                        </p>
-                        {todo.dueDate.length !== 0 && (
-                          <p
-                            style={{
-                              textDecoration:
-                                todo.isCompleted && 'line-through',
-                            }}
-                          >
-                            {formatDueDate(todo.dueDate)}
-                          </p>
-                        )}
-                      </div>
-                      <TodoEdit
-                        docID={todo.docID}
-                        name={todo.name}
-                        getTasksFromFirebase={getTasksFromFirebase}
-                        dueDate={todo.dueDate}
-                        tag={todo.tag}
-                      />
-                      <Button
-                        type="danger"
-                        btnText="Delete"
-                        onClick={() => handleDelete(todo.docID)}
-                      />
-                      <button
-                        onClick={() => {
-                          markAsFavourited(todo);
+                    <li
+                      className="list-inside flex justify-between mb-5 items-center"
+                      key={todo.id}
+                    >
+                      <div
+                        className="flex gap-2"
+                        style={{
+                          textDecoration: todo.isCompleted && 'line-through',
                         }}
                       >
-                        {todo.isFavourited ? fullStar : hollowStar}
-                      </button>
+                        <input
+                          id={todo.name}
+                          type="checkbox"
+                          onChange={() => {
+                            markAsCompleted(todo);
+                          }}
+                        />
+                        <div className="flex flex-col">
+                          <label
+                            htmlFor={todo.name}
+                            className="text-sm sm:text-base"
+                          >
+                            {todo.name}
+                          </label>
+                          <div className="flex text-xs gap-[2px]">
+                            <p className="first-letter:uppercase  whitespace-nowrap">
+                              {todo.tag} <span>•</span>
+                            </p>
+                            <p className="text-xs text-blue">
+                              {dateConvert(todo.date)}
+                            </p>
+                          </div>
+                          {todo.dueDate.length !== 0 && (
+                            <p>{formatDueDate(todo.dueDate)}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <div className="grid justify-items-end gap-[6px]">
+                          <TodoEdit
+                            docID={todo.docID}
+                            name={todo.name}
+                            getTasksFromFirebase={getTasksFromFirebase}
+                            dueDate={todo.dueDate}
+                            tag={todo.tag}
+                          />
+                          <Button
+                            type="danger"
+                            btnText="Delete"
+                            onClick={() => handleDelete(todo.docID)}
+                          />
+                        </div>
+                        <button
+                          onClick={() => {
+                            markAsFavourited(todo);
+                          }}
+                        >
+                          {todo.isFavourited ? fullStar : hollowStar}
+                        </button>
+                      </div>
                     </li>
                   );
                 })

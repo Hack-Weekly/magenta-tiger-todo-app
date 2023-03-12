@@ -1,6 +1,8 @@
 .button-base.button-base {
   display: inline;
   min-width: min-content;
+  height: 32px;
+  line-height: normal;
   padding-block: 4px;
   padding-inline: 24px;
   background-color: var(--colors-blue);
@@ -40,6 +42,25 @@
 
 .outlined-button:active,
 .outlined-button:focus-visible {
+  color: var(--colors-white);
+  background-color: var(--colors-blue);
+}
+
+/* Outlined Border */
+
+.outlined-border-button.outlined-border-button {
+  color: var(--colors-blue);
+  background-color: var(--colors-ice-blue);
+  border: 1px solid var(--colors-blue);
+}
+
+.outlined-border-button:hover {
+  color: var(--colors-white);
+  background-color: var(--colors-light-blue);
+}
+
+.outlined-border-button:active,
+.outlined-border-button:focus-visible {
   color: var(--colors-white);
   background-color: var(--colors-blue);
 }

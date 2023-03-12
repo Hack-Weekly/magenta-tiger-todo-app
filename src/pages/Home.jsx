@@ -39,15 +39,17 @@ const Home = () => {
 
   return (
     // change styling as appropriate//
-    <div className="flex items-center gap-10 justify-between">
+    <div className="relative h-screen overflow-hidden md:grid md:grid-cols-[auto,1fr] md:gap-5">
       <Nav tasks={tasks} />
       <main>
         <TodoForm
           userUID={userID}
           getTasksFromFirebase={getTasksFromFirebase}
         />
-        <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
-        <Button onClick={logout} type="danger" btnText="Log out" />
+        <div className="px-5 mt-8">
+          <TodoList tasks={tasks} getTasksFromFirebase={getTasksFromFirebase} />
+          <Button onClick={logout} type="danger" btnText="Log out" />
+        </div>
       </main>
     </div>
   );

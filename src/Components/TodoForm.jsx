@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useState, forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { updateTasks } from '../firebase/firestore';
 import { Button } from './Button';
 
@@ -11,6 +11,11 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   const [inputValue, setInputValue] = useState('');
   const [tag, setTag] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const openTodoForm = () => {
+    setIsFormOpen(!isFormOpen);
+  };
 
   const addTodo = async (event) => {
     event.preventDefault();
@@ -33,56 +38,75 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   const ReactDatePickerInput = forwardRef((props, ref) => (
     <Button
       btnText={dueDate.length === 0 ? 'No due date' : dateConvert(dueDate)}
-      type="outlined"
+      type="outlined-border"
       {...props}
     />
   ));
 
   return (
-    <section className="grid gap-4 p-5">
-      <form className="flex gap-2" onSubmit={addTodo}>
-        <label>
-          Your todo:
-          <input
-            value={inputValue}
-            onChange={(event) => {
-              setInputValue(event.target.value);
-            }}
-            placeholder="Your todo"
-            className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
-            type="text"
-          />
-        </label>
-        <label>
-          Tag:
-          <input
-            value={tag}
-            onChange={(event) => {
-              setTag(event.target.value);
-            }}
-            placeholder="Tag"
-            className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
-            type="text"
-          />
-        </label>
-
-        <Button btnText="Add" htmlType="submit" />
-      </form>
-      <div className="flex gap-1">
-        <ReactDatePicker
-          wrapperClassName="selector-date-wrapper"
-          shouldCloseOnSelect
-          timeCaption="time"
-          dateFormat="MMM d, yyyy"
-          selected={dueDate}
-          onChange={(date) => setDueDate(date)}
-          name="datePicker"
-          customInput={<ReactDatePickerInput />}
-        />
-        {dueDate.length !== 0 && (
-          <Button btnText="X" type="danger" onClick={() => setDueDate('')} />
-        )}
+    <div className="mt-14">
+      <div className="ml-5">
+        <Button onClick={openTodoForm} btnText="+ New task" type="outlined" />
       </div>
-    </section>
+
+      {isFormOpen && (
+        <section className="p-5 bg-ice-blue md:rounded-lg mt-2 md:ml-5">
+          <h2 className="text-lg font-bold mb-2">Add new task</h2>
+          <form
+            className="grid gap-2 sm:max-w-[300px]  md:max-w-xs"
+            onSubmit={addTodo}
+          >
+            <label className="flex justify-between">
+              Your task:
+              <input
+                value={inputValue}
+                onChange={(event) => {
+                  setInputValue(event.target.value);
+                }}
+                placeholder="Your task"
+                className="bg-slate-200 pl-2 rounded-md border border-y-dark-blue"
+                type="text"
+              />
+            </label>
+            <label className="flex justify-between">
+              Tag:
+              <input
+                value={tag}
+                onChange={(event) => {
+                  setTag(event.target.value);
+                }}
+                placeholder="Tag"
+                className="bg-slate-200 pl-2 rounded-md border border-y-dark-blue"
+                type="text"
+              />
+            </label>
+
+            <div className="flex gap-1">
+              <ReactDatePicker
+                wrapperClassName="selector-date-wrapper"
+                shouldCloseOnSelect
+                timeCaption="time"
+                dateFormat="MMM d, yyyy"
+                selected={dueDate}
+                onChange={(date) => setDueDate(date)}
+                name="datePicker"
+                customInput={<ReactDatePickerInput />}
+              />
+              {dueDate.length !== 0 && (
+                <Button
+                  btnText="X"
+                  type="danger"
+                  onClick={() => setDueDate('')}
+                />
+              )}
+            </div>
+
+            <div className="max-w-[137px] mt-2">
+              <Button btnText="Add" htmlType="submit" />
+            </div>
+          </form>
+        </section>
+      )}
+    </div>
   );
 }

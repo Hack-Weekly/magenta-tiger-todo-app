@@ -9,6 +9,7 @@ body {
   --colors-dark-blue: #0067d5;
   --colors-black: black;
   --colors-white: white;
+  --colors-white-grey: #fafafa;
   --colors-light-grey: #8c8c8c;
   --colors-dark-grey: #4b4b4b;
   --colors-light-success: #6affbc;
@@ -17,4 +18,6 @@ body {
   --colors-light-danger: #ff9191;
   --colors-danger: #ff6868;
   --colors-dark-danger: #f44040;
+
+  --colors-magenta: #ff00ff;
 }
