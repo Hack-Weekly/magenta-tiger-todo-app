@@ -89,67 +89,73 @@ const Register = () => {
   return (
     <>
       <ToastContainer />
-      <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg max-w-sm m-auto mt-4 ">
-        <h3 className="text-2xl font-bold text-center">Register</h3>
-        <form onSubmit={handleSubmit}>
-          <div className="mt-3">
-            <div>
-              <label className="block" htmlFor="name">
-                Name
-              </label>
-              <input
-                title="Enter name"
-                value={registerForm.name}
-                name="name"
-                type="text"
-                placeholder="Name"
-                onChange={handleFormChange}
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-              />
+      <div className='flex items-center justify-center h-screen mt-4 max-w-sm m-auto mt-4">'>
+        <div className="border-2 border-sky-500  px-8 py-6 shadow-lg rounded-lg w-full max-w-md">
+          <h3 className="text-2xl font-bold text-center">Register</h3>
+          <form onSubmit={handleSubmit}>
+            <div className="mt-3 mb-3">
+              <div>
+                <label className="block" htmlFor="name">
+                  Name
+                </label>
+                <input
+                  title="Enter name"
+                  value={registerForm.name}
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                />
+              </div>
+              <div>
+                <label className="block" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  title="Enter email"
+                  value={registerForm.email}
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  title="Enter password"
+                  value={registerForm.password}
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                />
+              </div>
+              <p className="text-red-500">{validationError}</p>
+              <div className="flex flex-col md:flex-row justify-between mt-3">
+                <Button btnText="Create" title="Create account" />
+                <Link
+                  to="/login"
+                  className="text-sm hover:underline text-black text-opacity-50"
+                >
+                  Already a member?
+                  <span className="text-opacity-100 text-black"> Log in</span>
+                </Link>
+              </div>
             </div>
-            <div>
-              <label className="block" htmlFor="email">
-                Email
-              </label>
-              <input
-                title="Enter email"
-                value={registerForm.email}
-                name="email"
-                type="email"
-                placeholder="Email"
-                onChange={handleFormChange}
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block" htmlFor="password">
-                Password
-              </label>
-              <input
-                title="Enter password"
-                value={registerForm.password}
-                name="password"
-                type="password"
-                placeholder="Password"
-                onChange={handleFormChange}
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-              />
-            </div>
-            <p className="text-red-500">{validationError}</p>
-            <div className="flex items-baseline justify-between">
-              <Button btnText="Create" title="Create account" />
-              <Link to="/login" className="text-sm hover:underline">
-                Already a member? Log in
-              </Link>
-            </div>
-          </div>
-        </form>
-        <Button
-          btnText="Sign Up with Google"
-          title="Login"
-          onClick={signInWithGoogle}
-          type="success"
-        />
+          </form>
+          <Button
+            btnText="Sign Up with Google"
+            title="Login"
+            onClick={signInWithGoogle}
+            type="success"
+          />
+        </div>
       </div>
     </>
   );

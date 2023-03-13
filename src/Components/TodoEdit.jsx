@@ -59,28 +59,32 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate, tag }) => {
         btnText={!isEditing ? 'Edit' : 'Close'}
         type="outlined"
       />
-
       {isEditing ? (
         <>
-          <form onSubmit={(e) => handleSave(e)}>
-            <label htmlFor="title">Task:</label>
+          <form
+            onSubmit={(e) => handleSave(e)}
+            className="flex flex-col gap-2 my-2"
+          >
+            <label htmlFor="task">Task:</label>
             <input
+              name="task"
               value={taskName}
               title="Task name"
               placeholder="Task name"
               onChange={handleNameChange}
               type="text"
-              className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+              className="w-full py-1 pl-2 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
             />
+            <label htmlFor="tag">Tag:</label>
             <input
+              name="tag"
               value={taskTag}
               title="Task tag"
               placeholder="Task tag"
               onChange={handleTagChange}
               type="text"
-              className="bg-slate-200 pl-2 rounded-sm border border-slate-800"
+              className="w-full py-1 pl-2 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
             />
-            <Button btnText="Save" title="Save task" />
           </form>{' '}
           <div className="flex gap-1">
             <ReactDatePicker
@@ -100,6 +104,10 @@ const TodoEdit = ({ docID, name, getTasksFromFirebase, dueDate, tag }) => {
                 onClick={() => setTaskDueDate('')}
               />
             )}
+          </div>
+          <div className="mt-2">
+            {' '}
+            <Button btnText="Save" title="Save task" onClick={handleSave} />
           </div>
         </>
       ) : null}
