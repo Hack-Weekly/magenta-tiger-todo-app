@@ -47,7 +47,7 @@ const Home = () => {
           userUID={userID}
           getTasksFromFirebase={getTasksFromFirebase}
         />
-        <div className="px-5 mt-8 mb-5">
+        <div className="px-5 mt-8 mb-5  md:max-w-3xl">
           <TodoList
             tasks={tasks}
             getTasksFromFirebase={getTasksFromFirebase}

@@ -111,7 +111,6 @@ const TodoList = ({ tasks, getTasksFromFirebase, selectedTag }) => {
                                 onClick={() => handleDelete(todo.docID)}
                               />
                             </div>
-
                             <button
                               onClick={() => {
                                 markAsFavourited(todo);

@@ -44,13 +44,13 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
   ));
 
   return (
-    <div className="mt-14">
+    <div className="mt-14  md:max-w-3xl">
       <div className="ml-5">
         <Button onClick={openTodoForm} btnText="+ New task" type="outlined" />
       </div>
 
       {isFormOpen && (
-        <section className="p-5 bg-ice-blue md:rounded-lg mt-2 md:ml-5">
+        <section className="p-5 bg-ice-blue md:rounded-lg mt-2 md:ml-5 md:mr-4 ">
           <h2 className="text-lg font-bold mb-2">Add new task</h2>
           <form
             className="grid gap-2 sm:max-w-[300px]  md:max-w-xs"
@@ -80,31 +80,29 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
                 type="text"
               />
             </label>
-
-            <div className="flex gap-1">
-              <ReactDatePicker
-                wrapperClassName="selector-date-wrapper"
-                shouldCloseOnSelect
-                timeCaption="time"
-                dateFormat="MMM d, yyyy"
-                selected={dueDate}
-                onChange={(date) => setDueDate(date)}
-                name="datePicker"
-                customInput={<ReactDatePickerInput />}
-              />
-              {dueDate.length !== 0 && (
-                <Button
-                  btnText="X"
-                  type="danger"
-                  onClick={() => setDueDate('')}
-                />
-              )}
-            </div>
-
-            <div className="max-w-[137px] mt-2">
-              <Button btnText="Add" htmlType="submit" />
-            </div>
           </form>
+          <div className="flex gap-1 mt-3">
+            <ReactDatePicker
+              wrapperClassName="selector-date-wrapper"
+              shouldCloseOnSelect
+              timeCaption="time"
+              dateFormat="MMM d, yyyy"
+              selected={dueDate}
+              onChange={(date) => setDueDate(date)}
+              name="datePicker"
+              customInput={<ReactDatePickerInput />}
+            />
+            {dueDate.length !== 0 && (
+              <Button
+                btnText="X"
+                type="danger"
+                onClick={() => setDueDate('')}
+              />
+            )}
+          </div>
+          <div className="max-w-[137px] mt-2">
+            <Button btnText="Add" htmlType="submit" onClick={addTodo} />
+          </div>
         </section>
       )}
     </div>

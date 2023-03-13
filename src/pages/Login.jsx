@@ -72,12 +72,12 @@ const Login = () => {
   return (
     <>
       <ToastContainer />
-      <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg max-w-sm m-auto mt-4 ">
-        <h3 className="text-2xl font-bold text-center">
-          Login to your account
-        </h3>
-        <form onSubmit={handleSubmit}>
-          <div className="mt-3">
+      <div className=" flex flex-col items-center justify-center min-h-screen ml-4 mr-4 mt-4">
+        <div className="border-2 border-sky-500  px-8 py-6 shadow-lg rounded-lg w-full max-w-md">
+          <h3 className="text-2xl font-bold text-center mb-6">
+            Login to your account
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4 mb-3">
             <div>
               <label className="block" htmlFor="email">
                 Email
@@ -89,11 +89,11 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 onChange={handleFormChange}
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                className="w-full px-4 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
             </div>
-            <div className="mt-4">
-              <label className="block" htmlFor="password">
+            <div>
+              <label className="block " htmlFor="password">
                 Password
               </label>
               <input
@@ -103,24 +103,38 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 onChange={handleFormChange}
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                className="w-full px-4 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
             </div>
-            <p className="text-red-500">{validationError}</p>
-            <div className="flex items-baseline justify-between">
-              <Button btnText="Login" title="Login" />
-              <Link to="/register" className="text-sm hover:underline">
-                Don`t have an account? Create new
-              </Link>
+            <p className="text-red-500 imp">{validationError}</p>
+            <div className="flex flex-col md:flex-row justify-between">
+              <Button
+                btnText="Login"
+                title="Login"
+                className="w-full md:w-40"
+              />
+              <div className="flex items-center justify-center md:justify-end mt-4 md:mt-0">
+                <Link
+                  to="/register"
+                  className="text-sm hover:underline text-black text-opacity-50"
+                >
+                  Don't have an account?
+                  <span className="text-opacity-100 text-black">
+                    {' '}
+                    Create new
+                  </span>
+                </Link>
+              </div>
             </div>
-          </div>
-        </form>
-        <Button
-          btnText="Sign Up with Google"
-          title="Login"
-          onClick={signInWithGoogle}
-          type="success"
-        />
+          </form>
+          <Button
+            btnText="Sign Up with Google"
+            title="Login"
+            onClick={signInWithGoogle}
+            type="success"
+            className="w-full mt-5"
+          />
+        </div>
       </div>
     </>
   );
