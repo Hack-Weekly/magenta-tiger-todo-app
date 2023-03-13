@@ -26,7 +26,7 @@ export default function TodoForm({ userUID, getTasksFromFirebase }) {
         inputValue,
         Date.now(),
         dueDate,
-        tag
+        tag.toLowerCase()
       );
       await getTasksFromFirebase();
       setInputValue('');
